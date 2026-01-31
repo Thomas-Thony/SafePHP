@@ -2,16 +2,18 @@
     require_once __DIR__ . '/../vendor/autoload.php';
     use SafePHP\Auth;
     use SafePHP\Form;
+
+    $auth = new Auth( __DIR__ . "/../config", __DIR__ . "/../SafePHP-Logs/auth.log");
     
     if(isset($_POST["Se_connecter"])) {
         $name = $_POST["pseudo"];
         $password = $_POST["password"];
-        Auth::login($_POST["Se_connecter"], $name, $password);
+        $auth->login($_POST["Se_connecter"], $name, $password);
     } elseif(isset($_POST["S_inscrire"])) {
         $name = $_POST["name"];
         $mail= $_POST["email"];
         $password = $_POST["password"];
-        Auth::register($name, $mail, $password);
+        $auth->register($name, $mail, $password);
         return;
     }
 ?>

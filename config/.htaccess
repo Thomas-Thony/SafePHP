@@ -34,14 +34,12 @@ Header always set Referrer-Policy "strict-origin-when-cross-origin"
 # Header always set X-DNS-Prefetch-Control "off"
 
 # Limit the possible methods in HTTP (Here, simply GET and POST)
-Limiter les méthodes possibles en HTTP (Ici simplement GET et POST)
 Header set Access-Control-Allow-Methods "GET, POST"
 
 # Cookies management (Accessible only in HTTP => Not accessible by scripting languages). Browsers are supposed to only send the cookie when the request have the same origin. 
 Header edit Set-Cookie ^(PHPSESSID=.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
 
 # Hide header display
-Masquer l'affichage des entêtes
  Header unset Composed-By
  Header unset X-Powered-By
  Header unset X-Spip-Cache

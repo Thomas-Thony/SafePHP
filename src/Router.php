@@ -152,7 +152,7 @@ class Router {
                     $ressourceJS
                 );
             } else {
-                new ErrorHandler(404, "404.php");
+                new ErrorHandler(404, "404.php", __DIR__ . '/../SafePHP-Logs/router.logs');
             }
         }
     }
@@ -171,7 +171,7 @@ class Router {
                 if (!isset($nomLien) || $nomLien === null || $nomLien === " ") {
                     Exceptions::setErreurCustom("Merci de mettre un texte de lien !");
                 } else {
-                    $link = "<a href='" . $elementIndex . "'>" . $nomLien . "</a>";
+                    $link = "<a href='index.php?action=" . $elementIndex . "'>" . $nomLien . "</a>";
                 }
                 break;
 
@@ -187,6 +187,6 @@ class Router {
                 Exceptions::setErreurCustom("Merci de rentrer un type de lien valide ! (page, style ou script)");
                 break;
         }
-        return $link;
+        echo $link;
     }
 }

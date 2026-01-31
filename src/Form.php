@@ -137,8 +137,8 @@ class Form {
     public static function createLoginForm(string $FormName){
         echo "<form action='' method='POST'>";
         CSRF::createCSRF();
-        echo " <input type='text' name='name_input' placeholder='Nom' required>
-                <input type='password' name='password_input' required>
+        echo " <input type='text' name='pseudo' placeholder='Nom' required>
+                <input type='password' name='password' required>
                 <button type='submit' name=" . $FormName . ">
                     Se connecter
                 </button>";

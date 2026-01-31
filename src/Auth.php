@@ -6,6 +6,7 @@ use PDO;
 use SafePHP\CSRF;
 use SafePHP\Network;
 use SafePHP\Exceptions;
+use SafePHP\Secret;
 use SafePHP\Logs;
 
 require_once "./src/Database.php";
@@ -13,11 +14,16 @@ require_once "./src/Database.php";
 class Auth {
     private static array $loginTry = [];
 
+    private string $successLogin;
+    private string $errorLogin;
+    private Logs $logs;
 
-    public function __construct(){
-        $successLogin = "Successfull login from " . Network::getClientIP();
-        $errorLogin = "Failed login from " . Network::getClientIP();
-        new Logs(__DIR__ . "../SafePHP-Logs/auth.logs", "Authentification try", $successLogin, $errorLogin);
+    public function __construct(string $envPath, string $logsFile){
+        $secret = new Secret($envPath);
+        $secret->getEnv();
+        $this->successLogin = "Successfull login from " . Network::getClientIP();
+        $this->errorLogin = "Failed login from " . Network::getClientIP();
+        $this->logs = new Logs($_ENV["LOGS_DIR"] . "/auth.log", "Authentification try", $this->successLogin, $this->errorLogin);
     }
     
     /**
@@ -55,10 +61,12 @@ class Auth {
                         if ($unUtilisateur) {
                             if (password_verify($password, $unUtilisateur['mot_de_passe'])) {
                                 new Session($unUtilisateur["idCompte"], $unUtilisateur["name"], $unUtilisateur["userAccess"]);
+                                $this->logs->createLog("Info", $this->successLogin);
                                 header("Location: ./index.php?action=accueilUtilisateur");
                                 exit();
                             } else {
                                 echo "Pseudo ou mot de passe incorrect";
+                                $this->logs->createLog("Error", $this->errorLogin);
                                 return self::countLoginAttemps($ipClient);
                             }
                         }
@@ -100,6 +108,7 @@ class Auth {
                 $idCompte = $connexion->lastInsertId();
 
                 new Session($idCompte, $name, 0);
+                $this->logs->createLog("Error", "New user created at :" . Network::getClientIP());
                 header("Location: ./index.php?action=accueilUtilisateur");
                 exit();
             } else {

@@ -15,6 +15,7 @@ class Logs {
     private Logger $logger;
     private StreamHandler $fileHandler;
     
+    
     public function __construct(string $fileLogs, string $channelName, string $anInfoMessage, string $anErroMessage) {
         $this->logsFile = $fileLogs;
         $this->channelName = $channelName;
@@ -47,5 +48,9 @@ class Logs {
                 return Exceptions::setErreurCustom("Le choix 'Error' ou 'Info' est attendu !");
         }
         return;
+    }
+
+    public function getErrorMessage(){
+        return $this->errorMessage;
     }
 }

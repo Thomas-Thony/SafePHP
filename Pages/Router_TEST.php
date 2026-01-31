@@ -2,9 +2,7 @@
 
 use SafePHP\Router;
 
-use function PHPSTORM_META\type;
-
-$pagesFolder = "./";
+$pagesFolder = "";
 $stylesFolder = "../styles/";
 $scriptFolder = "../scripts/";
 
@@ -72,12 +70,24 @@ echo $router->getListsComponents();
 ?>
 
 <p>
-    Test création de lien : <br>
     <?php
         $CSSContent = $router->getWhiteListOfCSS();
         foreach ($CSSContent as $key => $cssFile) {
             echo "Clé: [$key] => Valeur: $cssFile<br>";
         }
-        echo "Lien : " . htmlspecialchars($router->createLink("css", $CSSContent["1"]));
+    ?>
+</p>
+
+<p>
+    Lien hypertexte :
+    <?php
+        $router->createLink("page",  2 ,"lien");
+    ?>
+</p>
+
+<p>
+    Lien hypertexte Bis :
+    <?php
+        $router->linkTo("test",$_SESSION["session"] );
     ?>
 </p>

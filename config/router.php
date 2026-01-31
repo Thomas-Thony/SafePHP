@@ -115,6 +115,6 @@ if (isset($_GET['action'])) {
         }
 
     } else {
-        new ErrorHandler(404, "404.php");
+        new ErrorHandler(404, "404.php", "/router.log");
     }
 }
