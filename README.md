@@ -20,21 +20,21 @@ Vous pouvez me conctacter à l'adresse mail thomas.thony.69@gmail.com .
 
 ## Introduction
 ### Pourquoi faire SafePHP
-SafePHP est une librairie PHP qui permet d'implémenter des moyens de cybersécurité facilment !<br>
-Cela rends le développement de moyens de cybersécurité rapide efficace et facile à maintenir.
+SafePHP est une librairie PHP qui permet d'implémenter des moyens de cybersécurité facilement !<br>
+Cela rend le développement de moyens de cybersécurité rapide, efficace et facile à maintenir.
 
 ### Avant toute chose
 
 Ce projet a été fait par un étudiant en informatique, avec le moins d'utilisation d'IA possible (Pas même pour la documentation), et vérification auprès de communautées certifiées quand c'est le cas.
-Je vous remercie d'être indulgent sur la qualité de code mais en étant pédagogique sur l'apport d'améliorations (dans le code ou simplement la manière de faire, tous les avis sont bon à prendre), ce projet a pour but de faciliter la vie des développeurs pour la cyber-sécurité. J'espère évidement que SafePHP sera utilisé par le plus grand nombre de développeurs et/ou qu'il sera maintenu par les plus enthousiastes de la libraire.
+Je vous remercie d'être indulgent sur la qualité de code mais en étant pédagogique sur l'apport d'améliorations (dans le code ou simplement la manière de faire, tous les avis sont bon à prendre), ce projet a pour but de faciliter la vie des développeurs pour la cybersécurité. J'espère évidement que SafePHP sera utilisé par le plus grand nombre de développeurs et/ou qu'il sera maintenu par les plus enthousiastes de la libraire.
 
 ### Contenu de la librairie
 
-Cette librairie contient plusieurs fichiers de configuration sont à disposition dans le dossier **config** comme :
+Cette librairie contient plusieurs fichiers de configuration qui sont à disposition dans le dossier **config** comme :
 
 - Un fichier de configuration Apache **.htaccess**
 - Un fichier **.env.example** où mettre vos variables d'environnement
-- un fichier **php.ini** avec des modules activés/désactivés par défault
+- Un fichier **php.ini** avec des modules activés/désactivés par défault
 
 ### Outils requis
 
@@ -51,13 +51,19 @@ composer require thomas-thony/safephp
 ```
 N'oubliez pas d'installer les dépendences associées pour assurer le bon fonctionnement du la librairie: 
 
+
+Windows :
 ```php
-composer update || composer install
+composer update; if ($?) { composer install }
+```
+Linux :
+```php
+composer update && composer install
 ```
 
 ### Configuration générale
 
-Avant de pouvoir utiliser pleinement SafePHP, pensez à importer les fichiers de configuration présents dans **./config** à la racine de votre projet et de mettre vos varibales d'environnement à jour dans le fichier .env .
+Avant de pouvoir utiliser pleinement SafePHP, pensez à importer les fichiers de configuration présents dans **./config** à la racine de votre projet et de mettre vos variables d'environnement à jour dans le fichier .env .
 
 #### Utiliser les variables d'environnement
 La classe [Secret](https://safephp.alwaysdata.net/docs/classes/SafePHP-Secret.html) permet de gérer l'importation de votre fichier .env .
@@ -118,8 +124,13 @@ composer require thomas-thony/safephp
 ```
 Don't forget to install all dependences linked to the library to ensure the good utility : 
 
+Windows :
 ```php
-composer update || composer install
+composer update; if ($?) { composer install }
+```
+Linux :
+```php
+composer update && composer install
 ```
 
 ### Global configuration

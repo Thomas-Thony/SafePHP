@@ -1,35 +1,53 @@
-#Template générique de fichier de configuration Apache
+# Generic template of the Apache file configuration
 
-# Ne pas afficher les sous-dossiers
+# Block site access to everything (in case of EMERGENCY) :
+## deny from all
+
+# Do not display subfolders by default
 Options -Indexes
 
-# Forcer le HTTPS
+# Force HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 <IfModule mod_headers.c>
-# Ajout du header HSTS uniquement en HTTPS (ne déclenche pas le HTTP)
+# Add the HSTS header only in HTTPS (Consequently, doesn't trigger HTTP)
+# In this case, force HTTPS HSTS connections during 1 year (include sub domains + preload option)
 Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
 
-#Controle du cache
+# Cache control
 Header set Cache-Control "max-age=3000, public"
 
-#Politique de référence
+# Reference policy
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
-#Limiter les méthodes possibles en HTTP (Ici simplement GET et POST)
+# XSS Protection
+# Header always set X-XSS-Protection "1; mode=block"
+
+# Block MIME sniffing
+# Header always set X-Content-Type-Options "nosniff"
+
+# Disable permissions
+# Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+
+# Prevent "DNS prefetch"
+# Header always set X-DNS-Prefetch-Control "off"
+
+# Limit the possible methods in HTTP (Here, simply GET and POST)
+Limiter les méthodes possibles en HTTP (Ici simplement GET et POST)
 Header set Access-Control-Allow-Methods "GET, POST"
 
-#Gestion des cookies (accsessible uniquement en HTTP => Pas accessible par les langages de script), le navigateur envoie uniquement le cookie lorsque la requête est de type même origine.
+# Cookies management (Accessible only in HTTP => Not accessible by scripting languages). Browsers are supposed to only send the cookie when the request have the same origin. 
 Header edit Set-Cookie ^(PHPSESSID=.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
 
-#Masquer l'affichage des entêtes
+# Hide header display
+Masquer l'affichage des entêtes
  Header unset Composed-By
  Header unset X-Powered-By
  Header unset X-Spip-Cache
 </IfModule>
 
-#Cacher et refuser l'accès aux fichiers de configuration php
+# Hide and deny to PHP configuration files access demands
 <Files ".user.ini">
     Require all denied
     ErrorDocument 
@@ -42,16 +60,15 @@ Header edit Set-Cookie ^(PHPSESSID=.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
     401 "Accès non autorisé"
 </Files>
 
-#Module générique 
+# Generic module 
 # <Files "you_file_name_.extension">
 #  Require 'Your access argument'
 #  Type of Page
 #  Type of Error "Customised message"
 # </Files>
 
-# Template de types de fichiers autorisés
-# deny from all
-# <Files ~ "\.(gif|jpe?g|png|pdf)$">
+# Template for authorized file types 
+# <Files ~ "\.(gif|jpe?g|png|webp|pdf)$">
 #     order deny,allow
 #     allow from all
 # </Files>
