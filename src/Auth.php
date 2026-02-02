@@ -11,6 +11,9 @@ use SafePHP\Logs;
 
 require_once "./src/Database.php";
 
+/**
+ * Manage authentification safely
+ */
 class Auth {
     private static array $loginTry = [];
 
@@ -18,12 +21,16 @@ class Auth {
     private string $errorLogin;
     private Logs $logs;
 
+    /**
+     * @param string $envPath Folder where the .env file is 
+     * @param string $logsFile Path where save the logs about authentification success or fail
+     */
     public function __construct(string $envPath, string $logsFile){
         $secret = new Secret($envPath);
         $secret->getEnv();
         $this->successLogin = "Successfull login from " . Network::getClientIP();
         $this->errorLogin = "Failed login from " . Network::getClientIP();
-        $this->logs = new Logs($_ENV["LOGS_DIR"] . "/auth.log", "Authentification try", $this->successLogin, $this->errorLogin);
+        $this->logs = new Logs($_ENV["LOGS_DIR"] . $logsFile, "Authentification try", $this->successLogin, $this->errorLogin);
     }
     
     /**

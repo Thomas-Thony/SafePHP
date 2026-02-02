@@ -3,11 +3,13 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . "/../src/AccesHandler.php";
 
+use SafePHP\Router;
 use SafePHP\SRI;
 use SafePHP\ErrorHandler;
 use SafePHP\AccessHandler;
 
 $session = $_SESSION["session"];
+$accessHandler = new AccessHandler(__DIR__ . "/../SafePHP-Logs/router.logs");
 
 $pagesFolder = "./Pages/";
 $stylesFolder = "./styles/";
@@ -26,6 +28,7 @@ $whiteListOfTitle = array(
     "9" => "",
     "10" => "",
     "11" => "",
+    "12" => "",
 );
 
 $whiteListAccesPages = array(
@@ -41,6 +44,7 @@ $whiteListAccesPages = array(
     "9" => 0,
     "10" => 0,
     "11" => 4,
+    "12" => 1,
 );
 
 $whiteListOfPages = array(
@@ -56,6 +60,7 @@ $whiteListOfPages = array(
     "9" => "AccessHandler_TEST.php",
     "10" => "Router_TEST.php",
     "11" => "Logs_TEST.php",
+    "12" => "RBAC_TEST.php",
 );
 
 $whiteListeOfCSS = array(
@@ -71,6 +76,7 @@ $whiteListeOfCSS = array(
     "9" => "Form_TEST.css",
     "10" => "Form_TEST.css",
     "11" => "Form_TEST.css",
+    "12" => "Form_TEST.css",
 );
 
 $whiteListeOfJS = array(
@@ -86,8 +92,8 @@ $whiteListeOfJS = array(
     "9" => "",
     "10" => "",
     "11" => "",
+    "12" => "",
 );
-
 
 /***
  * A mettre dans une fonction de la classe Router
@@ -95,16 +101,16 @@ $whiteListeOfJS = array(
 if (isset($_GET['action'])) {
     $page = $_GET["action"];
     if (array_key_exists($page, $whiteListOfPages)) {
-        AccessHandler::verifyAccess($session, $whiteListAccesPages[$page]);
+        $accessHandler->verifyAccess($session, $whiteListAccesPages[$page]);
 
         $content = $pagesFolder . $whiteListOfPages[$page];
         $title = $whiteListOfTitle[$page];
 
-        if($whiteListeOfCSS[$page] === "") {
+        if ($whiteListeOfCSS[$page] === "") {
             $fileCSS = "default.css";
             SRI::createSRI("css", $stylesFolder . $fileCSS);
         } else {
-            $ressourceCSS = SRI::createSRI( "css", $stylesFolder . $whiteListeOfCSS[$page]);
+            $ressourceCSS = SRI::createSRI("css", $stylesFolder . $whiteListeOfCSS[$page]);
         }
 
         if ($whiteListeOfJS[$page] === "") {

@@ -1,13 +1,16 @@
 <?php
 namespace SafePHP;
 
+/**
+ * Verification of file uploaded (Type|MIME) and extensions
+ */
 class Verify {
     private static array $DocumentsFile = ["pdf", "doc", "docx", "txt", "odt", "ppt", "pptx"]; //Liste d'extension de documents valide
     private static array $ImagesFile = ["png", "jpeg", "jpg", "gif"]; //Liste d'extension d'image valide
     private static array $VideosFile = ["mov", "mp4", "m4a"]; //Liste d'extension vidéo valides
 
     /**
-     * Summary of MimeTypes
+     * List of signature file accepted
      * @var array Mime Types authorized for each "type" of file
      */
     private static array $MimeTypes = [

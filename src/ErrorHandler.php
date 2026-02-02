@@ -3,6 +3,9 @@
 namespace SafePHP;
 use SafePHP\Logs;
 
+/**
+ * Manage http/https responses
+ */
 class ErrorHandler {
     /**
      * Folder direction of error pages

@@ -4,6 +4,9 @@ namespace SafePHP;
 
 use Dotenv\Dotenv;
 
+/**
+ * Manage environnement variables and other secret keys
+ */
 class Secret {
     /**
      * The path where the .env file is located

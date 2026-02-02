@@ -2,6 +2,9 @@
 
 namespace SafePHP;
 
+/**
+ * Send header when some already sent
+ */
 class Header {
     /**
      * Make redirection without header function in php

@@ -2,6 +2,9 @@
 
 namespace SafePHP;
 
+/**
+ * Ensure Sub-Ressource Integrity
+ */
 class SRI {
     /**
      * Create a hash on a ressource file with sha384 hash algorithm

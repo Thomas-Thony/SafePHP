@@ -2,10 +2,15 @@
 
 namespace SafePHP;
 
-use Exception;
 use SafePHP\Auth;
 
+/**
+ * Manage access of user for ressources
+ */
 class AccessHandler {
+
+    private string $logFile;
+
     /** Get the code acces of an user
      * @return int the acces code of user
      */
@@ -14,21 +19,29 @@ class AccessHandler {
     }
 
     /**
+     * Construct an AccessHandler
+     * @param string $aLogFile the path to the logs for the router
+     */
+    public function __construct(string $aLogFile) {
+        $this->logFile = $aLogFile;
+    }
+
+    /**
      * Verify if the actual user can access a ressource by comparing his access's level
      * @param Session $sessionName name of the session (username)
      * @param int $codeAcces to have to pass
-     * @throws Exception if false
+     * @throws ErrorHandler if false
      * @return void Return http code 200, or ErrorHandler object
      */
-    public static function verifyAccess(Session $session, $codeAcces){
+    public function verifyAccess(Session $session, $codeAcces){
        $userId =  Auth::verifAuth($_SESSION["user_id"]);
         $codeAccesUser = $_SESSION["user_access_code"];
         if ($userId === false || $userId === null) {
             var_dump($userId);
-            return new ErrorHandler(401, "401.php"); /*Access unauthorized */
+            return new ErrorHandler(401, "401.php", $this->logFile); /*Access unauthorized */
         }
         if ($codeAccesUser < $codeAcces) {
-            return new ErrorHandler(403, "403.php"); /*Access forbidden*/
+            return new ErrorHandler(403, "403.php", $this->logFile); /*Access forbidden*/
         } else {
             http_response_code(200);
             http_response_code();

@@ -2,9 +2,9 @@
 
 use SafePHP\Router;
 
-$pagesFolder = "";
-$stylesFolder = "../styles/";
-$scriptFolder = "../scripts/";
+$pagesFolder = __DIR__;
+$stylesFolder = __DIR__ . "/../styles/";
+$scriptFolder = __DIR__ . "/../scripts/";
 
 $whiteListAccesPages = array(
     "0" => 0,
@@ -46,7 +46,16 @@ $whiteListeOfCSS = array(
 );
 
 $whiteListeOfJS = array(
-
+    "0" => "",
+    "1" => "",
+    "2" => "",
+    "3" => "",
+    "4" => "",
+    "5" => "",
+    "6" => "",
+    "7" => "",
+    "8" => "",
+    "9" => "",
 );
 
 $whiteListOfTitle = array(
@@ -71,6 +80,7 @@ echo $router->getListsComponents();
 
 <p>
     <?php
+        ob_start();
         $CSSContent = $router->getWhiteListOfCSS();
         foreach ($CSSContent as $key => $cssFile) {
             echo "Clé: [$key] => Valeur: $cssFile<br>";
@@ -85,9 +95,7 @@ echo $router->getListsComponents();
     ?>
 </p>
 
-<p>
-    Lien hypertexte Bis :
-    <?php
-        $router->linkTo("test",$_SESSION["session"] );
-    ?>
-</p>
+<?php
+    $router->linkTo("6",$_SESSION["session"] );
+    ob_end_flush();
+?>

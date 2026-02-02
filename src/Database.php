@@ -2,7 +2,11 @@
 namespace SafePHP;
 use PDO;
 use PDOException;
+use PDOStatement;
 use SafePHP\Secret;
+/**
+ * Interaction in SQL with safe statements
+ */
 class Database {
 
     /**
@@ -29,10 +33,11 @@ class Database {
     /**
      * Create SQL request prepared to avoid injection, don't forget to add verify &/or sanitize functions for more safety
      * @param string $Query request to forge
-     * @return void
+     * @return bool|PDOStatement return prepared SQL request
      */
     public static function InsertSQL(string $Query){
         $connexion = self::connectDatabase();
-        $connexion->prepare($Query);
+        return $connexion->prepare($Query);
+    
     }
 }

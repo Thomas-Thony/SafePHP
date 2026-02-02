@@ -1,6 +1,10 @@
 <?php
-    namespace SafePHP;
 
+namespace SafePHP;
+
+/**
+ * Avoid command injection 
+ */
 class AntiCommands {
 
     /**

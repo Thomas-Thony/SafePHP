@@ -5,8 +5,10 @@ require_once "./vendor/autoload.php";
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
-use PHPUnit\Framework\Constraint\ExceptionMessageIsOrContains;
 
+/**
+ * Create, generate, and save logs 
+ */
 class Logs {
     private string $logsFile;
     private string $channelName;

@@ -1,9 +1,26 @@
 <?php
 namespace SafePHP;
 
+/**
+ * Network management with white, grey, black lists  getters/setters and IP getters
+ */
 class Network {
+    /**
+     * Authorized IP adress
+     * @var array List of IP adress
+     */
     private static array $WhiteList;
+
+    /**
+     * Authorized IP adress with supervision
+     * @var array List of IP adress
+     */
     private static array $GreyList;
+
+    /**
+     * Banned IP adress
+     * @var array List of IP adress
+     */
     private static array $BlackList;
 
     public static function getWhiteList(){

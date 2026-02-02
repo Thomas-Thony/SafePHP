@@ -4,8 +4,9 @@ use SafePHP\Form;
 use SafePHP\Sanitize;
 use SafePHP\CSRF;
 use SafePHP\Auth;
+$auth = new Auth(__DIR__ . "/../config", __DIR__ . "/../SafePHP-Logs/auth.log");
 if(isset($_POST["Se_connecter"]) && $_POST["Se_connecter"] != null) {
-    Auth::login($_POST["Se_connecter"], $_POST["name_input"], $_POST["password_input"]);
+    $auth->login($_POST["Se_connecter"], $_POST["name_input"], $_POST["password_input"]);
 }
 ?>
 <!--Formulaire de création de formulaire-->

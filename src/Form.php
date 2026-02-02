@@ -3,6 +3,9 @@ namespace SafePHP;
 use SafePHP\CSRF;
 use Exception;
 
+/**
+ * Generate form with safe statements (Sanitize, Verify, CSRF)
+ */
 class Form {
     private array $InputConfig;
 

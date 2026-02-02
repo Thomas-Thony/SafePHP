@@ -2,6 +2,9 @@
 
 namespace SafePHP;
 
+/**
+ * Local Exceptions handler class
+ */
 class Exceptions {
     /**
      * @var string File signature error
@@ -38,7 +41,7 @@ class Exceptions {
      * @param string $AnError Custom message
      * @return string The output of the custom error
      */
-    public static function setErreurCustom($AnError) : string {
+    public static function setErreurCustom(string $AnError) : string {
         return self::$ErreurCustom = $AnError;
     }
 

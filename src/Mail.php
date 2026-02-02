@@ -11,6 +11,9 @@ require 'vendor/PHPMailer/src/Exception.php';
 require 'vendor/PHPMailer/src/PHPMailer.php';
 require 'vendor/PHPMailer/src/SMTP.php';
 
+/**
+ * Send mail with SMTP server
+ */
 class Mail {
 
     /**

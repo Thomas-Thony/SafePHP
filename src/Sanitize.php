@@ -1,7 +1,9 @@
 <?php
 namespace SafePHP;
 
-use PDO;
+/**
+ * Sanitize value on input (safe method)
+ */
 class Sanitize {
     /**
      * Sanitize an input with a type

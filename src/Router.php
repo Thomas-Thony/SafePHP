@@ -6,6 +6,9 @@ use SafePHP\AccessHandler;
 use SafePHP\ErrorHandler;
 use SafePHP\Exceptions;
 
+/**
+ * Router management with list of ressources authorized (avoid file inclusion or code inclusion)
+ */
 class Router {
     private array $whiteListOfPages = [];
     private array $whiteListOfTitle = [];
@@ -16,6 +19,8 @@ class Router {
     private string $stylesFolder;
     private string $pagesFolder;
     private string $scriptFolder;
+
+    private AccessHandler $accesHandler;
 
     /**
      * Construct a router
@@ -30,6 +35,8 @@ class Router {
         $this->stylesFolder = $aStyleFolder;
         $this->pagesFolder = $aPagesFolder;
         $this->scriptFolder = $aScriptFolder;
+
+        $this->accesHandler = new AccessHandler(__DIR__ . "/../SafePHP-Logs/auth.logs");
     }
 
     /**
@@ -126,7 +133,7 @@ class Router {
     public function linkTo(string $link, Session $session){
         if (isset($link)) {
             if (array_key_exists($link, $this->whiteListOfPages)) {
-                AccessHandler::verifyAccess($session, $this->whiteListAccesPages[$link]);
+                $this->accesHandler->verifyAccess($session, $this->whiteListAccesPages[$link]);
 
                 $content = $this->pagesFolder . $this->whiteListOfPages[$link];
                 $title = $this->whiteListOfTitle[$link];
@@ -151,6 +158,7 @@ class Router {
                     $ressourceCSS,
                     $ressourceJS
                 );
+                
             } else {
                 new ErrorHandler(404, "404.php", __DIR__ . '/../SafePHP-Logs/router.logs');
             }

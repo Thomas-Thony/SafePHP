@@ -1,6 +1,9 @@
 <?php
 namespace SafePHP;
 
+/**
+ * Manage CSRF protection
+ */
 class CSRF {
 
     /** Create a CSRF token

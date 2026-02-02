@@ -1,6 +1,9 @@
 <?php
 namespace SafePHP;
 use SafePHP\Database;
+/**
+ *  Verification of each file included on server, database, or form
+ */
 class FileInclusion {
     /**
      * Include a file on the server or database

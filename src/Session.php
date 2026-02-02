@@ -5,7 +5,9 @@ use SessionHandler;
 use Exception;
 
 
-#===DO NOT USE IT YET ! IT'S NOT FINISHED !!! (That's why there is no doc in the readme about this class)===#
+/**
+ * Manage user session with encryption, access verification, headers and lifetime session
+ */
 class Session extends SessionHandler{
     private string $encryptMethod = "AES-256-CBC";
     private string $secretKey ;
