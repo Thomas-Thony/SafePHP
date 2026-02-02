@@ -60,7 +60,7 @@ class Auth {
                     $passwordverify = password_verify($filterPassword, PASSWORD_DEFAULT);
 
                     if ($passwordverify) {
-                        $verificationUtilisateur = $connexion->prepare("SELECT * FROM users WHERE pseudo = :name");
+                        $verificationUtilisateur = $connexion->prepare("SELECT * FROM users WHERE name = :name");
                         $verificationUtilisateur->bindValue(":name", $filterName, PDO::PARAM_STR);
                         $verificationUtilisateur->execute([$filterName]);
                         $unUtilisateur = $verificationUtilisateur->fetch(PDO::FETCH_ASSOC);

@@ -38,8 +38,19 @@ class VerifyTest extends TestCase
         $FileBis = "something.bin";
         $FileBisBis = "something.jpeg";
 
-        $this->assertEquals(1, 1, Verify::verifyExtensionImage($File));
-        $this->assertEquals(0, 0, Verify::verifyExtensionImage($FileBis));
-        $this->assertEquals(1, 1, Verify::verifyExtensionImage($FileBisBis));
+        $this->assertSame(1, Verify::verifyExtensionImage($File));
+        $this->assertSame( 0, Verify::verifyExtensionImage($FileBis));
+        $this->assertSame( 1, Verify::verifyExtensionImage($FileBisBis));
+    }
+
+    /**
+     * @test
+     */
+    public function testVerifySignatureFile(){
+        $FileTmpName = "hoirio.kgop";
+        $FileName = "fiezh";
+        $FileType = "video";
+
+        $this->assertSame(true, Verify::verifySignatureFile($FileTmpName, $FileName, $FileType));
     }
 }

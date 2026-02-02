@@ -45,9 +45,11 @@ class Session extends SessionHandler{
             session_regenerate_id(true);
 
             // Store user's data in session
+            $userPermissions = new RBAC($userAccessCode);
             $_SESSION['user_id'] = $this->encryptSessionId($userId);
             $_SESSION['user_name'] = $userName;
             $_SESSION['user_access_code'] = $userAccessCode;
+            $_SESSION['user_access'] = $userPermissions;
             $_SESSION['created_at'] = time();
             $_SESSION['last_regeneration'] = time();
             $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'] ?? '';

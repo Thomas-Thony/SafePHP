@@ -28,7 +28,6 @@ class Logs {
         $this->fileHandler = new StreamHandler($this->logsFile, Level::Info);
         
         $this->logger->pushHandler($this->fileHandler);
-    
     }
 
     /**

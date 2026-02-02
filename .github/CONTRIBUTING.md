@@ -9,7 +9,8 @@ Like said on the **README**, you can contribute to this project by doing fixes o
 ### For everyone
 
 You can create a fork of the main branch of this project.
-To submit your changes to the main branch, you can ask for a pull requests.
+To submit your changes to the main branch, you can ask for a pull requests with detailled description of your modifications (there can be a lot of lines t oreview so make the code reviewers work easier). <br> 
+Also, everyone must understand so we constrain you to the use of English.
 
 ### For thoses who code
 For a better understanding by everyone, thanks to follow the write convention that is already in use.
@@ -27,15 +28,19 @@ Exemples :
 
         $RandomName = bin2hex(random_bytes(24));
         $NewFilePath = "$TempDir/$RandomName.$ExtensionFile";
+        
+        try {
+            $Movefile = move_uploaded_file($tmpFilePath, $NewFilePath);
 
-        $Movefile = move_uploaded_file($tmpFilePath, $NewFilePath);
-
-        if ($Movefile) {
-            echo "Déplacement du fichier réussi !";
-            return $NewFilePath;
-        } else {
-            echo "Erreur lors du déplacement de fichier";
-            return false;
+            if ($Movefile) {
+                echo "File move succed !";
+                return $NewFilePath;
+            } else {
+                echo "Error while moving file !";
+                return false;
+            }
+        } catch (Exception $e) {
+            return $e->getMessages();
         }
     }
 
@@ -50,12 +55,13 @@ Exemples :
 
         $Movefile = move_uploaded_file($tmpFilePath, $NewFilePath); //Move the file to the temp folder 
 
-        if ($Movefile) { //If it's a succes 
-            echo "Déplacement du fichier réussi !";
-            return $NewFilePath;
-        } else { //If it failed
-            echo "Erreur lors du déplacement de fichier";
-            return false;
+        try {
+            $Movefile = move_uploaded_file($tmpFilePath, $NewFilePath);
+            echo "File move succed !";
+            return $NewFilePath; //If succed
+        } catch (Exception $e) {
+            //If failed
+            return "Error while moving file !" . $e->getMessages();
         }
     }
 ?>

@@ -1,8 +1,9 @@
 /vendor
-.tmp/*
+.tmp/
 .vscode
 .phpdoc
 node_modules/
 config/.env
 docs/
 .vscode/
+.phpunit.result.cache
