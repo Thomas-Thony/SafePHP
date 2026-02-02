@@ -1,1 +1,0 @@
-{"version":2,"defects":{"VerifyTest::testVerifyExtensionImage":7,"RouterTest::testVerify":5,"RouterTest::testGetListComponents":5},"times":{"VerifyTest::testVerify":0.003,"VerifyTest::testVerifyExtensionImage":0.001,"RouterTest::testVerify":0.005,"RouterTest::testGetListComponents":0.002}}
