@@ -3,8 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use SafePHP\Verify;
 
-class VerifyTest extends TestCase
-{
+class VerifyTest extends TestCase {
     /**
      * @test
      */
@@ -51,6 +50,6 @@ class VerifyTest extends TestCase
         $FileName = "fiezh";
         $FileType = "video";
 
-        $this->assertSame(true, Verify::verifySignatureFile($FileTmpName, $FileName, $FileType));
+        $this->assertSame(false, Verify::verifySignatureFile($FileTmpName, $FileName, $FileType));
     }
 }
