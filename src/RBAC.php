@@ -12,9 +12,7 @@ class RBAC {
     private array $actionsAdmin = [];
     private array $actionsMod = [];
     private array $actionMember = [];
-
     private array $permissions = [];
-
     private array $userPerms = [];
 
     /**
@@ -51,7 +49,22 @@ class RBAC {
         return $this->userPerms;
     }
 
+    /**
+     *  Get all permissions created in the object (Debug)
+     * @return array
+     */
     public function getAllPerms(){
         return $this->permissions;
+    }
+
+    /**
+     * Give temporary permissions
+     * @param int $idSessionUtilisateur
+     * @param int $indexPermission Set the new permission by getting it in the permissions array
+     * @param int $dayActions number of day that keeps the perms actives
+     * @return void
+     */
+    public function giveTempPerms(int $indexPermission, int $dayActions) {
+        $this->userPerms = $this->permissions[$indexPermission];
     }
 }

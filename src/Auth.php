@@ -8,6 +8,7 @@ use SafePHP\Network;
 use SafePHP\Exceptions;
 use SafePHP\Secret;
 use SafePHP\Logs;
+use SafePHP\LoginTry;
 
 require_once "./src/Database.php";
 
@@ -15,17 +16,16 @@ require_once "./src/Database.php";
  * Manage authentification safely
  */
 class Auth {
-    private static array $loginTry = [];
-
+    private static array $listeLoginTry = [];
     private string $successLogin;
     private string $errorLogin;
     private Logs $logs;
 
     /**
-     * @param string $envPath Folder where the .env file is 
+     * @param string $envPath Folder where the .env file is
      * @param string $logsFile Path where save the logs about authentification success or fail
      */
-    public function __construct(string $envPath, string $logsFile){
+    public function __construct(string $envPath, string $logsFile) {
         $secret = new Secret($envPath);
         $secret->getEnv();
         $this->successLogin = "Successfull login from " . Network::getClientIP();
@@ -40,7 +40,7 @@ class Auth {
      * @param string $password password to authentify
      * @return bool state of connexion (true or false)
      */
-    public function login($submit, $name, $password){
+    public function login($submit, $name, $password) {
         if (isset($submit) && $submit != null) {
             if (!CSRF::verifyCSRF()) {
                 die("Jeton CSRF invalide !");
@@ -139,7 +139,7 @@ class Auth {
      * @param string $sessionName the session to verify
      * @return void return error in case of false
      */
-    public static function verifAuth($sessionId){
+    public static function verifAuth($sessionId) : bool{
         if ($_SESSION["user_id"] !== $sessionId) {
             echo Exceptions::getErreurSession();
             return false;
@@ -151,26 +151,26 @@ class Auth {
     /**
      * Verify the authentification by the user
      * @param string $ipClient the IP Adresse that tried login
-     * @return bool return true if cool if dosen't have cooldown 
+     * @return bool return true if cool if dosen't have cooldown
      */
-    public static function countLoginAttemps($ipClient){
+    public static function countLoginAttemps($ipClient) : bool {
+        new LoginTry($ipClient);
         if (!self::hasIp($ipClient)) {
-            self::$loginTry[$ipClient] = [
-                "loginTry" => 0,
-                "cooldown" => 0
+            self::$listeLoginTry[$ipClient] = [
+                
             ];
         }
 
-        if (self::$loginTry[$ipClient]["cooldown"] > time()) {
+        if (self::$listeLoginTry[$ipClient]["cooldown"] > time()) {
             echo Exceptions::getErreurCooldown();
             return false;
         }
 
-        self::$loginTry[$ipClient]["loginTry"]++;
+        self::$listeLoginTry[$ipClient]["loginTry"]++;
 
-        if (self::$loginTry[$ipClient]["loginTry"] >= 5) {
-            self::$loginTry[$ipClient]["cooldown"] = time() + (2 * 3600); // + 2 hours
-            self::$loginTry[$ipClient]["loginTry"] = 0;
+        if (self::$listeLoginTry[$ipClient]["loginTry"] >= 5) {
+            self::$listeLoginTry[$ipClient]["cooldown"] = time() + (2 * 3600); // + 2 hours
+            self::$listeLoginTry[$ipClient]["loginTry"] = 0;
             Exceptions::getErreurCooldown();
             return false;
         }
@@ -182,14 +182,14 @@ class Auth {
      * @return array Retourne toutes les tentatives de connexion
      */
     public static function getHashMapTryLogin(): array {
-        return self::$loginTry;
+        return self::$listeLoginTry;
     }
 
     /**
      * @return void les informations de tentatives de connexion
      */
     public static function displayLoginAttempts(): void {
-        foreach (self::$loginTry as $ip => $data) {
+        foreach (self::$listeLoginTry as $ip => $data) {
             echo "IP: {$ip} - Tentatives: {$data['loginTry']} - Cooldown: {$data['cooldown']}\n";
         }
     }
@@ -200,7 +200,7 @@ class Auth {
      * @return bool return true if this IP adresse already tried connexion
      */
     public static function hasIp(string $clientIp): bool{
-        return isset(self::$loginTry[$clientIp]);
+        return isset(self::$listeLoginTry[$clientIp]);
     }
 
 
@@ -211,12 +211,8 @@ class Auth {
      * @param string $cooldown timer of the cooldown until new try for this IP
      * @return void nothing....for the moment
      */
-    public static function addIpTryLogin($ip, $count, $cooldown): void {
-        self::$loginTry[$ip] = [
-            "loginTry" => $count,
-            "cooldown" => $cooldown
-        ];
-
-        return;
+    public static function addIpTryLogin($ip) {
+        $loginTry = new LoginTry($ip);
+        return $loginTry->addTry($ip);
     }
 }
