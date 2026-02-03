@@ -3,6 +3,7 @@
 namespace SafePHP;
 use SessionHandler;
 use Exception;
+use SafePHP\Auth;
 
 
 /**
@@ -24,6 +25,13 @@ class Session extends SessionHandler{
         return $this->createSession($userId, $userName, $userAccessCode);
     }
 
+    /**
+     * Summary of createSession
+     * @param mixed $userId
+     * @param mixed $userName
+     * @param mixed $userAccessCode
+     * @return bool
+     */
     public function createSession($userId, $userName, $userAccessCode){
         try {
             // Session configuration
@@ -132,6 +140,12 @@ class Session extends SessionHandler{
             return $this->decryptSessionId($_SESSION["user_id"]);
         } else {
             return "No session created !";
+        }
+    }
+
+    public static function checkLastActivity(){
+        if($_SESSION["last_activity"] > 3600) {
+            Auth::logout();
         }
     }
 }
