@@ -2,9 +2,9 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use SafePHP\Session;
-use SafePHP\Auth;
 
 Session::checkLastActivity();
+
 if (!isset($_SESSION['user_id'])) {
     $session = new Session("478944784fzsdfz7f4ez89f", 'Thomas', 2);
     $_SESSION["session"] = $session;

@@ -36,7 +36,7 @@ class Session extends SessionHandler{
         try {
             // Session configuration
             session_set_cookie_params([
-                'lifetime' => 14400, // 4 hours
+                'lifetime' => 0, //When browser is closed, the session is deleted
                 'path' => '/',
                 'domain' => $_SERVER['HTTP_HOST'] ?? '',
                 'secure' => true, // HTTPS only
@@ -145,7 +145,12 @@ class Session extends SessionHandler{
 
     public static function checkLastActivity(){
         if($_SESSION["last_activity"] > 3600) {
+            $logoutMessage = "Session deleted, inactive for an hour or more.";
+            $logs = new Logs("../SafePHP-Logs/session.logs", "Session_Logs", " ", $logoutMessage);
+            $logs->createLog("Error", $logoutMessage);
             Auth::logout();
+        } else {
+            return 0;
         }
     }
 }

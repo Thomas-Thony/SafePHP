@@ -7,7 +7,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 
 /**
- * Create, generate, and save logs 
+ * Create, generate, and save logs
  */
 class Logs {
     private string $logsFile;
