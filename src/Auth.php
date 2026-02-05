@@ -42,7 +42,7 @@ class Auth {
      */
     public function login($submit, $name, $password) {
         $clientIP = Network::getClientIP();
-        $this->checkIp($clientIP);
+        Network::checkIp($clientIP);
         if (isset($submit) && $submit != null) {
             if (!CSRF::verifyCSRF()) {
                 die("Jeton CSRF invalide !");
@@ -98,7 +98,7 @@ class Auth {
      */
     public function register($name, $email, $password){
         $clientIP = Network::getClientIP();
-        $this->checkIp($clientIP);
+        Network::checkIp($clientIP);
         if (isset($email, $name, $password) && !empty($name) && !empty($email) && !empty($password)) {
 
             $filterName = Sanitize::sanitize($name, "text");
@@ -221,33 +221,5 @@ class Auth {
     public static function addIpTryLogin($ip) {
         $loginTry = new LoginTry($ip);
         return $loginTry->addTry($ip);
-    }
-
-    public function checkIp($clientIp){
-        $blackList = Network::getBlackList();
-        $greyList =  Network::getGreyList();
-        $whiteList = Network::getWhiteList();
-
-        $exist = null;
-
-        switch($clientIp) {
-            case in_array($clientIp, $blackList) :
-                $exist = new ErrorHandler(403, "403.php",__DIR__ . "/../SafePHP-Logs/auth.logs");
-                break;
-
-            case in_array($clientIp, $greyList):
-                $exist = 1;
-                break;
-
-            case in_array($clientIp, $whiteList):
-                $exist = 0;
-                break;
-
-            default:
-                $exist = null;
-                break;
-        }
-
-        return $exist;
     }
 }

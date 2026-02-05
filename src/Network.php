@@ -117,4 +117,38 @@ class Network {
     public static function getIPv6($ip){
         return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
     }
+
+    /**
+     * Summary of checkIp
+     * @param mixed $clientIp
+     * @return ErrorHandler|int|null
+     */
+    public static function checkIp($clientIp)
+    {
+        $blackList = self::getBlackList();
+        $greyList = self::getGreyList();
+        $whiteList = self::getWhiteList();
+
+        $exist = null;
+
+        switch ($clientIp) {
+            case in_array($clientIp, $blackList):
+                $exist = new ErrorHandler(403, "403.php", __DIR__ . "/../SafePHP-Logs/auth.logs");
+                break;
+
+            case in_array($clientIp, $greyList):
+                $exist = 1;
+                break;
+
+            case in_array($clientIp, $whiteList):
+                $exist = 0;
+                break;
+
+            default:
+                $exist = null;
+                break;
+        }
+
+        return $exist;
+    }
 }

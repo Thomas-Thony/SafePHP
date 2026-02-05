@@ -60,6 +60,9 @@ class Session extends SessionHandler{
             $_SESSION['user_access'] = $userPermissions;
             $_SESSION['created_at'] = time();
             $_SESSION['last_regeneration'] = time();
+            $_SESSION['start_temp_perms'] = null;
+            $_SESSION['end_temp_perms'] = null;
+            $_SESSION["temp_access_code"] = 0;
             $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'] ?? '';
             $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
@@ -151,6 +154,29 @@ class Session extends SessionHandler{
             Auth::logout();
         } else {
             return 0;
+        }
+    }
+
+    public static function resetTempPerms(){
+        $_SESSION["start_temp_perms"] = null;
+        $_SESSION["end_temp_perms"] = null;
+        $_SESSION["temp_access_code"] = 0;
+        return $_SESSION;
+    }
+
+    public static function checkTempPerms() {
+        $actualDate = date(DATE_RFC2822);
+        $startTempPerms = $_SESSION["start_temp_perms"];
+        $endTempPerms = $_SESSION["end_temp_perms"];
+
+        if(isset($startTempPerms) && isset($endTempPerms)) {
+            if($actualDate > $endTempPerms){
+                return self::resetTempPerms();
+            } else {
+                return;
+            }
+        } else {
+            return;
         }
     }
 }
