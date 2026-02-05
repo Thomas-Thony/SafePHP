@@ -67,7 +67,6 @@ require_once "./config/router.php";
     </section>
 </body>
 
-
 <footer>
     <?php
     include_once "./Components/footer.php";

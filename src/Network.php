@@ -67,11 +67,37 @@ class Network {
      * @return string IP adress
      */
     public static function getClientIP(){
-        $ip = $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN';
-        if ($ip === '::1') {
-            $ip = '127.0.0.1';
+        $ipaddress = '';
+        switch($ipaddress){
+            case (isset($_SERVER['HTTP_CLIENT_IP'])):
+                $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+                break;
+
+            case (isset($_SERVER['HTTP_X_FORWARDED_FOR'])):
+                $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                break;
+
+            case (isset($_SERVER["HTTP_X_FORWARDED"])) :
+                $ipaddress = $_SERVER["HTTP_X_FORWARDED"];
+                break;
+
+            case (isset($_SERVER["HTTP_FORWARDED_FOR"])):
+                $ipaddress = $_SERVER["HTTP_FORWARDED_FOR"];
+                break;
+
+            case (isset($_SERVER["HTTP_FORWARDED"])):
+                $ipaddress = $_SERVER["HTTP_FORWARDED"];
+                break;
+
+            case (isset($_SERVER["REMOTE_ADDR"])):
+                $ipaddress = $_SERVER["REMOTE_ADDR"];
+                break;
+
+            default:
+                $ipaddress = "UNKNOWN";
+                break;
         }
-        return $ip;
+        return $ipaddress;
     }
 
     /**

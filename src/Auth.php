@@ -215,4 +215,28 @@ class Auth {
         $loginTry = new LoginTry($ip);
         return $loginTry->addTry($ip);
     }
+
+    public function checkIp($clientIp){
+        $blackList = Network::getBlackList();
+        $greyList =  Network::getGreyList();
+        $whiteList = Network::getWhiteList();
+
+        $exist = null;
+
+        switch($clientIp) {
+            case (in_array($clientIp, $blackList)) :
+                $exist = new ErrorHandler(403, "403.php",__DIR__ . "/../SafePHP-Logs/auth.logs");
+                break;
+
+            case (in_array($clientIp, $greyList)):
+                $exist = 1; 
+                break;
+
+            case (in_array($clientIp, $whiteList)):
+                $exist = 0;
+                break;
+        }
+
+        return $exist;
+    }
 }

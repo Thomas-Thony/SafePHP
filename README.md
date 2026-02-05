@@ -1,4 +1,9 @@
 # [SafePHP](#safephp) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
+[![Tests](https://github.com/Thomas-Thony/SafePHP/actions/workflows/tests.yml/badge.svg)](https://github.com/Thomas-Thony/SafePHP/actions/workflows/tests.yml)
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/thomas-thony/safephp">
+<img alt="GitHub forks" src="https://img.shields.io/github/forks/thomas-thony/safephp">
+
+
 <a href="#sommaire"><img src="./Components/Img/fra.svg" style="width:40px; height:auto;"></a> <a href="#summary"><img src="./Components/Img/eng.svg" style="width:40px; height:auto;"></a>
 ## Sommaire
 
