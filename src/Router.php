@@ -15,11 +15,9 @@ class Router {
     private array $whiteListeOfCSS = [];
     private array $whiteListOfJS = [];
     private array $whiteListAccesPages = [];
-
     private string $stylesFolder;
     private string $pagesFolder;
     private string $scriptFolder;
-
     private AccessHandler $accesHandler;
 
     /**

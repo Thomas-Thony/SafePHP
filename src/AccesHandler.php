@@ -33,18 +33,28 @@ class AccessHandler {
      * @throws ErrorHandler if false
      * @return void Return http code 200, or ErrorHandler object
      */
-    public function verifyAccess(Session $session, $codeAcces){
+    public function verifyAccess(Session $session, $codeAcces) {
        $userId =  Auth::verifAuth($_SESSION["user_id"]);
-        $codeAccesUser = $_SESSION["user_access_code"];
+
+       /*If there are temporary permissions given */
+        if(isset($_SESSION["temp_access_code"]) && $_SESSION["temp_access_code"] !== null){
+            if ($_SESSION["temp_access_code"] > $_SESSION["user_access_code"]) {
+                $codeAccessUser = $_SESSION["temp_access_code"];
+            } else {
+                $codeAccessUser = $_SESSION["user_access_code"];
+            }
+        } else {
+            $codeAccessUser = $_SESSION["user_access_code"];
+        }
+
         if ($userId === false || $userId === null) {
-            var_dump($userId);
             return new ErrorHandler(401, "401.php", $this->logFile); /*Access unauthorized */
         }
-        if ($codeAccesUser < $codeAcces) {
+        if ($codeAccessUser < $codeAcces) {
             return new ErrorHandler(403, "403.php", $this->logFile); /*Access forbidden*/
         } else {
             http_response_code(200);
-            http_response_code();
+            return http_response_code();
         }
     }
 }

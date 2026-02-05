@@ -62,19 +62,17 @@ class Session extends SessionHandler{
             $_SESSION['last_regeneration'] = time();
             $_SESSION['start_temp_perms'] = null;
             $_SESSION['end_temp_perms'] = null;
-            $_SESSION["temp_access_code"] = 0;
+            $_SESSION["temp_access_code"] = null;
             $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'] ?? '';
             $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-            // Headers de sécurité supplémentaires
+            // Headers for more security (even if the are already in .htaccess)
             if (!headers_sent()) {
                 header('X-Frame-Options: DENY');
                 header('X-Content-Type-Options: nosniff');
                 header('X-XSS-Protection: 1; mode=block');
                 header('Referrer-Policy: strict-origin-when-cross-origin');
                 header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
-
-                // Cache-Control pour les pages avec session
                 header('Cache-Control: no-cache, no-store, must-revalidate, private');
                 header('Pragma: no-cache');
                 header('Expires: 0');

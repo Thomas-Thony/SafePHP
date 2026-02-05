@@ -62,9 +62,15 @@ class RBAC {
      * @param int $idSessionUtilisateur
      * @param int $indexPermission Set the new permission by getting it in the permissions array
      * @param int $dayActions number of day that keeps the perms actives
-     * @return void
+     * @return array The session updated
      */
     public function giveTempPerms(int $indexPermission, int $dayActions) {
         $this->userPerms = $this->permissions[$indexPermission];
+        $actualTime = date(DATE_RFC2822);
+        $_SESSION["start_temp_perms"] = $actualTime;
+        $_SESSION["end_temp_perms"] = $actualTime + $dayActions;
+        $_SESSION["temp_access_code"] = $indexPermission;
+
+        return $_SESSION;
     }
 }
