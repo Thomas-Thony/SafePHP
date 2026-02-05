@@ -41,6 +41,8 @@ class Auth {
      * @return bool state of connexion (true or false)
      */
     public function login($submit, $name, $password) {
+        $clientIP = Network::getClientIP();
+        $this->checkIp($clientIP);
         if (isset($submit) && $submit != null) {
             if (!CSRF::verifyCSRF()) {
                 die("Jeton CSRF invalide !");
@@ -95,6 +97,8 @@ class Auth {
      * @return void state of connexion (string error or header to the account page)
      */
     public function register($name, $email, $password){
+        $clientIP = Network::getClientIP();
+        $this->checkIp($clientIP);
         if (isset($email, $name, $password) && !empty($name) && !empty($email) && !empty($password)) {
 
             $filterName = Sanitize::sanitize($name, "text");
@@ -155,11 +159,14 @@ class Auth {
      */
     public static function countLoginAttemps($ipClient) : bool {
         new LoginTry($ipClient);
+        //============================Change the code below...
         if (!self::hasIp($ipClient)) {
             self::$listeLoginTry[$ipClient] = [
                 
             ];
         }
+
+        //=================================================
 
         if (self::$listeLoginTry[$ipClient]["cooldown"] > time()) {
             echo Exceptions::getErreurCooldown();
@@ -224,16 +231,20 @@ class Auth {
         $exist = null;
 
         switch($clientIp) {
-            case (in_array($clientIp, $blackList)) :
+            case in_array($clientIp, $blackList) :
                 $exist = new ErrorHandler(403, "403.php",__DIR__ . "/../SafePHP-Logs/auth.logs");
                 break;
 
-            case (in_array($clientIp, $greyList)):
-                $exist = 1; 
+            case in_array($clientIp, $greyList):
+                $exist = 1;
                 break;
 
-            case (in_array($clientIp, $whiteList)):
+            case in_array($clientIp, $whiteList):
                 $exist = 0;
+                break;
+
+            default:
+                $exist = null;
                 break;
         }
 
