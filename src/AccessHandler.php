@@ -35,26 +35,27 @@ class AccessHandler {
      */
     public function verifyAccess(Session $session, $codeAcces) {
        $userId =  Auth::verifAuth($_SESSION["user_id"]);
-
-       /*If there are temporary permissions given */
-        if(isset($_SESSION["temp_access_code"]) && $_SESSION["temp_access_code"] !== null){
-            if ($_SESSION["temp_access_code"] > $_SESSION["user_access_code"]) {
-                $codeAccessUser = $_SESSION["temp_access_code"];
+       
+       if ($userId === false || $userId === null) {
+           return new ErrorHandler(401, "401.php", $this->logFile); /*Access unauthorized */
+       } else {
+           /*If there are temporary permissions given */
+            if(isset($_SESSION["temp_access_code"]) && $_SESSION["temp_access_code"] !== null){
+                if ($_SESSION["temp_access_code"] > $_SESSION["user_access_code"]) {
+                    $codeAccessUser = $_SESSION["temp_access_code"];
+                } else {
+                    $codeAccessUser = $_SESSION["user_access_code"];
+                }
             } else {
                 $codeAccessUser = $_SESSION["user_access_code"];
             }
-        } else {
-            $codeAccessUser = $_SESSION["user_access_code"];
-        }
-
-        if ($userId === false || $userId === null) {
-            return new ErrorHandler(401, "401.php", $this->logFile); /*Access unauthorized */
-        }
-        if ($codeAccessUser < $codeAcces) {
-            return new ErrorHandler(403, "403.php", $this->logFile); /*Access forbidden*/
-        } else {
-            http_response_code(200);
-            return http_response_code();
-        }
+    
+            if ($codeAccessUser < $codeAcces) {
+                return new ErrorHandler(403, "403.php", $this->logFile); /*Access forbidden*/
+            } else {
+                http_response_code(200);
+                return http_response_code();
+            }
+       }
     }
 }
