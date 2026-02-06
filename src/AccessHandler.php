@@ -28,12 +28,11 @@ class AccessHandler {
 
     /**
      * Verify if the actual user can access a ressource by comparing his access's level
-     * @param Session $sessionName name of the session (username)
      * @param int $codeAcces to have to pass
      * @throws ErrorHandler if false
      * @return void Return http code 200, or ErrorHandler object
      */
-    public function verifyAccess(Session $session, $codeAcces) {
+    public function verifyAccess($codeAcces): bool|ErrorHandler|int {
        $userId =  Auth::verifAuth($_SESSION["user_id"]);
        
        if ($userId === false || $userId === null) {
