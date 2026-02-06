@@ -95,9 +95,6 @@ $whiteListeOfJS = array(
     "12" => "",
 );
 
-/***
- * A mettre dans une fonction de la classe Router
- */
 if (isset($_GET['action'])) {
     $page = $_GET["action"];
     if (array_key_exists($page, $whiteListOfPages)) {

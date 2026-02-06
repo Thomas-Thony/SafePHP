@@ -9,7 +9,7 @@ class Header {
     /**
      * Make redirection without header function in php
      * @param string $url the url where to redirect
-     * @return never
+     * @return
      */
     public static function redirect(string $url){
         if (!headers_sent()) {
@@ -22,7 +22,7 @@ class Header {
             echo '<noscript>';
             echo '<meta http-equiv="refresh" content="0;url=' . $url . '" />';
             echo '</noscript>';
-            exit;
+            exit(0);
         }
     }
 }

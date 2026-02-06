@@ -24,7 +24,7 @@ class Router {
      * Construct a router
      * Create a list of pages, styles and scripts files to accept only them on GET method
      */
-    public function __construct(array $aWhiteListOfPages, array $aWhiteListOfTitle, array $aWhiteListOfCSS, array $whiteListOfJS, array $aWhiteListOfAccess, string $aStyleFolder, string $aPagesFolder, string $aScriptFolder){
+    public function __construct(array $aWhiteListOfPages, array $aWhiteListOfTitle, array $aWhiteListOfCSS, array $whiteListOfJS, array $aWhiteListOfAccess, string $aPagesFolder, string $aStyleFolder, string $aScriptFolder){
         $this->whiteListOfPages = $aWhiteListOfPages;
         $this->whiteListOfTitle = $aWhiteListOfTitle;
         $this->whiteListeOfCSS = $aWhiteListOfCSS;

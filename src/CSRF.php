@@ -15,8 +15,8 @@ class CSRF {
         }
         $CSRF_TOKEN = bin2hex(random_bytes(32));
         $_SESSION['csrf_token'] = $CSRF_TOKEN;
-        echo(sprintf("<input type='hidden' name='csrf_token' value='%s'>", htmlspecialchars($CSRF_TOKEN, ENT_QUOTES, 'UTF-8')));
-        return;
+        return (sprintf("<input type='hidden' name='csrf_token' value='%s'>", htmlspecialchars($CSRF_TOKEN, ENT_QUOTES, 'UTF-8')));
+        
     }
 
     /** Verify if there is a CSRF token and if it's correct
@@ -24,10 +24,12 @@ class CSRF {
      */
     public static function verifyCSRF(){
         $CSRF_INPUT = $_POST["csrf_token"];
-        if(!isset($CSRF_INPUT) || $CSRF_INPUT == null || !(hash_equals($CSRF_INPUT, $_SESSION["csrf_token"]))){
-            die("Invalid CSRF Token !");
+        if (!isset($CSRF_INPUT) || $CSRF_INPUT == null || $CSRF_INPUT !== $_SESSION['csrf_token']) {
+            echo "Invalid CSRF Token !";
+            return false;
         } else {
             echo "CSRF valide !!";
+            return true;
         }
     }
 }

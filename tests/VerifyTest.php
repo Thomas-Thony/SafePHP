@@ -26,6 +26,7 @@ class VerifyTest extends TestCase {
         $this->assertEquals(true, true, Verify::verify($objectValue, "object"));
         $this->assertEquals(false, false, Verify::verify($arrayValue, "int"));
         $this->assertEquals(true, true, Verify::verify($stringValue, "string"));
+        $this->assertEquals(false, false, Verify::verify($nullValue, "string"));
 
     }
 

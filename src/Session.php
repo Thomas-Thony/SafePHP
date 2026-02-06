@@ -5,7 +5,6 @@ use SessionHandler;
 use Exception;
 use SafePHP\Auth;
 
-
 /**
  * Manage user session with encryption, access verification, headers and lifetime session
  */
@@ -33,6 +32,9 @@ class Session extends SessionHandler{
      * @return bool
      */
     public function createSession($userId, $userName, $userAccessCode){
+        if($userName === null || !isset($userName)) {
+            die("Invalide name");
+        }
         try {
             // Session configuration
             session_set_cookie_params([
@@ -150,6 +152,7 @@ class Session extends SessionHandler{
             $logs = new Logs("../SafePHP-Logs/session.logs", "Session_Logs", " ", $logoutMessage);
             $logs->createLog("Error", $logoutMessage);
             Auth::logout();
+            return 1;
         } else {
             return 0;
         }
@@ -171,10 +174,10 @@ class Session extends SessionHandler{
             if($actualDate > $endTempPerms){
                 return self::resetTempPerms();
             } else {
-                return;
+                return true;
             }
         } else {
-            return;
+            return false;
         }
     }
 }
