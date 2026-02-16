@@ -147,14 +147,16 @@ class Session extends SessionHandler{
     }
 
     public static function checkLastActivity(){
-        if($_SESSION["last_activity"] > 3600) {
-            $logoutMessage = "Session deleted, inactive for an hour or more.";
-            $logs = new Logs("../SafePHP-Logs/session.logs", "Session_Logs", " ", $logoutMessage);
-            $logs->createLog("Error", $logoutMessage);
-            Auth::logout();
-            return 1;
-        } else {
-            return 0;
+        if(isset($_SESSION["last_activity"])) {
+            if($_SESSION["last_activity"] > 3600) {
+                $logoutMessage = "Session deleted, inactive for an hour or more.";
+                $logs = new Logs("../SafePHP-Logs/session.logs", "Session_Logs", " ", $logoutMessage);
+                $logs->createLog("Error", $logoutMessage);
+                Auth::logout();
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
 
@@ -166,18 +168,20 @@ class Session extends SessionHandler{
     }
 
     public static function checkTempPerms() {
-        $actualDate = date(DATE_RFC2822);
-        $startTempPerms = $_SESSION["start_temp_perms"];
-        $endTempPerms = $_SESSION["end_temp_perms"];
-
-        if(isset($startTempPerms) && isset($endTempPerms)) {
-            if($actualDate > $endTempPerms){
-                return self::resetTempPerms();
+        if(isset($_SESSION["start_temp_perms"]) && isset($_SESSION["end_temp_perms"])) {
+            $actualDate = date(DATE_RFC2822);
+            $startTempPerms = $_SESSION["start_temp_perms"];
+            $endTempPerms = $_SESSION["end_temp_perms"];
+    
+            if(isset($startTempPerms) && isset($endTempPerms)) {
+                if($actualDate > $endTempPerms){
+                    return self::resetTempPerms();
+                } else {
+                    return true;
+                }
             } else {
-                return true;
+                return false;
             }
-        } else {
-            return false;
         }
     }
 }

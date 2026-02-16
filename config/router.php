@@ -1,7 +1,6 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . "/../src/AccesHandler.php";
 
 use SafePHP\Router;
 use SafePHP\SRI;
@@ -9,7 +8,8 @@ use SafePHP\ErrorHandler;
 use SafePHP\AccessHandler;
 
 $session = $_SESSION["session"];
-$accessHandler = new AccessHandler(__DIR__ . "/../SafePHP-Logs/router.logs");
+$envPath = __DIR__ . "/../config/";
+$accessHandler = new AccessHandler( $envPath,__DIR__ . "/../SafePHP-Logs/router.logs");
 
 $pagesFolder = "./Pages/";
 $stylesFolder = "./styles/";

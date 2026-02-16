@@ -22,8 +22,10 @@ class AccessHandler {
      * Construct an AccessHandler
      * @param string $aLogFile the path to the logs for the router
      */
-    public function __construct(string $aLogFile) {
-        $this->logFile = $aLogFile;
+    public function __construct(string $envPath, string $aLogFile) {
+        $secret = new Secret($envPath);
+        $secret->getEnv();
+        $this->logFile =  $aLogFile;
     }
 
     /**
@@ -41,15 +43,15 @@ class AccessHandler {
            /*If there are temporary permissions given */
             if(isset($_SESSION["temp_access_code"]) && $_SESSION["temp_access_code"] !== null){
                 if ($_SESSION["temp_access_code"] > $_SESSION["user_access_code"]) {
-                    $codeAccessUser = $_SESSION["temp_access_code"];
+                    $codeAccessUser = (int) $_SESSION["temp_access_code"];
                 } else {
-                    $codeAccessUser = $_SESSION["user_access_code"];
+                    $codeAccessUser = (int) $_SESSION["user_access_code"];
                 }
             } else {
-                $codeAccessUser = $_SESSION["user_access_code"];
+                $codeAccessUser = (int) $_SESSION["user_access_code"];
             }
     
-            if ($codeAccessUser < $codeAcces) {
+            if ($codeAccessUser < (int) $codeAcces) {
                 return new ErrorHandler(403, "403.php", $this->logFile); /*Access forbidden*/
             } else {
                 http_response_code(200);
