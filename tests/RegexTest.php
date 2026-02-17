@@ -3,15 +3,13 @@
 use PHPUnit\Framework\TestCase;
 use SafePHP\Regex;
 
-class RegexTest extends TestCase {
+class RegexTest extends TestCase
+{
 
     /**
      * @test
      */
     public function testVerify(){
-        var_dump("Test lancé !");
-        var_dump(class_exists('SafePHP\Regex'));
-
         $validInt = 45615;
         $invalidInt = 44.45;
 
