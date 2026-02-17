@@ -5,6 +5,11 @@
       "SafePHP\\": "src/"
     }
   },
+  "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
   "description": "A cyber-security library for your php project",
   "type": "library",
   "authors": [

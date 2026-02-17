@@ -3,12 +3,11 @@
 namespace SafePHP;
 
 class Regex {
-    private static string $regexMail = "^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$";
-    private static string $regexString = "^[a-zA-Z]+$";
-    private static string $regexDate = "^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$";
-    private static string $regexNumber = "^[0-9]+[a-z0-9]?$";
-    private static string $regexInt = "^-?\d+$";
-    
+    private static string $regexMail = "/^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/";
+    private static string $regexString = "/^[a-zA-Z]+$/";
+    private static string $regexDate = "/^[0-9]{1,2}\\/[0-9]{1,2}\\/[0-9]{4}$/";
+    private static string $regexNumber = "/^[0-9]+[a-z0-9]?$/";
+    private static string $regexInt = "/^-?\d+$/";
 
     /**
      * Verify if an input is valid with the regex expected
@@ -42,15 +41,9 @@ class Regex {
                 break;
 
             default:
-                $regex = null;
+                $regex = false;
                 break;
         }
-
-        if(preg_match($regex, $anInputToVerify)){
-            return true;
-        } else {
-            return false;
-        }
-
+        return (bool) preg_match($regex, (string) $anInputToVerify);
     }
 }

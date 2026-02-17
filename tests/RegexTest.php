@@ -8,7 +8,10 @@ class RegexTest extends TestCase {
     /**
      * @test
      */
-    public function verifyTest(){
+    public function testVerify(){
+        var_dump("Test lancé !");
+        var_dump(class_exists('SafePHP\Regex'));
+
         $validInt = 45615;
         $invalidInt = 44.45;
 
