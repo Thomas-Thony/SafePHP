@@ -1,6 +1,8 @@
 <?php
 namespace SafePHP;
 
+use SafePHP\GLOBALS\Globals;
+
 /**
  * Network management with white, grey, black lists  getters/setters and IP getters
  */
@@ -133,7 +135,7 @@ class Network {
 
         switch ($clientIp) {
             case in_array($clientIp, $blackList):
-                $exist = new ErrorHandler(403, "403.php", __DIR__ . "/../SafePHP-Logs/auth.logs");
+                $exist = new ErrorHandler(403, "403.php", Globals::$logsDir . "auth.logs");
                 break;
 
             case in_array($clientIp, $greyList):

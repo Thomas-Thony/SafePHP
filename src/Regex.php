@@ -11,9 +11,9 @@ class Regex {
 
     /**
      * Verify if an input is valid with the regex expected
-     * @param mixed $anInputToVerify
-     * @param mixed $theTypeOfRegexToUse
-     * @return bool
+     * @param mixed $anInputToVerify anything you want
+     * @param mixed $theTypeOfRegexToUse : mail, string, date, digit or integer
+     * @return bool true if the input is valid according to the regex used
      */
     public static function verify($anInputToVerify, $theTypeOfRegexToUse) : bool {
 

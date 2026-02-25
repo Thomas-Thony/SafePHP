@@ -5,6 +5,7 @@ use SafePHP\SRI;
 use SafePHP\AccessHandler;
 use SafePHP\ErrorHandler;
 use SafePHP\Exceptions;
+use SafePHP\GLOBALS\Globals;
 
 /**
  * Router management with list of ressources authorized (avoid file inclusion or code inclusion)
@@ -34,7 +35,7 @@ class Router {
         $this->pagesFolder = $aPagesFolder;
         $this->scriptFolder = $aScriptFolder;
 
-        $this->accesHandler = new AccessHandler(__DIR__ . "/../SafePHP-Logs/auth.logs");
+        $this->accesHandler = new AccessHandler(__DIR__ . "/../config/", Globals::$logsDir . "auth.logs");
     }
 
     /**
@@ -158,7 +159,7 @@ class Router {
                 );
                 
             } else {
-                new ErrorHandler(404, "404.php", __DIR__ . '/../SafePHP-Logs/router.logs');
+                new ErrorHandler(404, "404.php", Globals::$logsDir . "router.logs");
             }
         }
     }
@@ -194,5 +195,12 @@ class Router {
                 break;
         }
         echo $link;
+    }
+
+    public static function checkHTTPResponse() {
+        $httpStatus = connection_status();
+        if($httpStatus === 2) {
+            return new ErrorHandler(408, "408.php", Globals::$logsDir . "router.logs");
+        }
     }
 }

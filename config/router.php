@@ -9,11 +9,11 @@ use SafePHP\AccessHandler;
 
 $session = $_SESSION["session"];
 $envPath = __DIR__ . "/../config/";
-$accessHandler = new AccessHandler( $envPath,__DIR__ . "/../SafePHP-Logs/router.logs");
+$accessHandler = new AccessHandler($envPath, __DIR__ . "/../SafePHP-Logs/router.logs");
 
 $pagesFolder = "./Pages/";
 $stylesFolder = "./styles/";
-$scriptFolder = "./scripts/";
+$scriptFolder = "./JS/";
 
 $whiteListOfTitle = array(
     "0" => "",

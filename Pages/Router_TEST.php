@@ -4,7 +4,7 @@ use SafePHP\Router;
 
 $pagesFolder = __DIR__;
 $stylesFolder = __DIR__ . "/../styles/";
-$scriptFolder = __DIR__ . "/../scripts/";
+$scriptFolder = __DIR__ . "/../JS/";
 
 $whiteListAccesPages = array(
     "0" => 0,
@@ -72,7 +72,7 @@ $whiteListOfTitle = array(
     "10" => "",
 );
 
-$router = new Router($whiteListOfPages,  $whiteListOfTitle, $whiteListeOfCSS, $whiteListeOfJS, $whiteListAccesPages, $stylesFolder, $pagesFolder, $scriptFolder);
+$router = new Router($whiteListOfPages, $whiteListOfTitle, $whiteListeOfCSS, $whiteListeOfJS, $whiteListAccesPages, $stylesFolder, $pagesFolder, $scriptFolder);
 
 echo $router->getListsComponents();
 
@@ -80,22 +80,22 @@ echo $router->getListsComponents();
 
 <p>
     <?php
-        ob_start();
-        $CSSContent = $router->getWhiteListOfCSS();
-        foreach ($CSSContent as $key => $cssFile) {
-            echo "Clé: [$key] => Valeur: $cssFile<br>";
-        }
+    ob_start();
+    $CSSContent = $router->getWhiteListOfCSS();
+    foreach ($CSSContent as $key => $cssFile) {
+        echo "Clé: [$key] => Valeur: $cssFile<br>";
+    }
     ?>
 </p>
 
 <p>
     Lien hypertexte :
     <?php
-        $router->createLink("page",  2 ,"lien");
+    $router->createLink("page", 2, "lien");
     ?>
 </p>
 
 <?php
-    $router->linkTo("6",$_SESSION["session"] );
-    ob_end_flush();
+$router->linkTo("6", $_SESSION["session"]);
+ob_end_flush();
 ?>
