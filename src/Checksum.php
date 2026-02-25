@@ -26,20 +26,26 @@ class Checksum {
 
     public static function exist(string $filename){
         $checksumFolder = Globals::$checksumDir;
+        var_dump($checksumFolder);
         $listOfChecksum = scandir($checksumFolder);
-        if(in_array($filename, $listOfChecksum)){
-            return true;
-        } else {
+        if($listOfChecksum === false){
             return false;
+        } else {
+            if(in_array($filename, $listOfChecksum)){
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
     public static function addToChecksum($file, string $name){
+        $checksumExtension = ".json";
         $checkSumDir = Globals::$checksumDir;
         $hashFile = self::createCheckSum($file);
         
         $newFile = ["name" => $name, "checksum" => $hashFile];
         $jsonFileContent = json_encode($newFile, JSON_PRETTY_PRINT);
-        return file_put_contents($checkSumDir . $name, $jsonFileContent);
+        return file_put_contents($checkSumDir . $name . $checksumExtension, $jsonFileContent);
     }
 }
