@@ -29,6 +29,7 @@ $whiteListOfTitle = array(
     "10" => "",
     "11" => "",
     "12" => "",
+    "13" => "",
 );
 
 $whiteListAccesPages = array(
@@ -45,6 +46,7 @@ $whiteListAccesPages = array(
     "10" => 0,
     "11" => 4,
     "12" => 1,
+    "13" => 1,
 );
 
 $whiteListOfPages = array(
@@ -61,6 +63,7 @@ $whiteListOfPages = array(
     "10" => "Router_TEST.php",
     "11" => "Logs_TEST.php",
     "12" => "RBAC_TEST.php",
+    "13" => "Checksum_TEST.php",
 );
 
 $whiteListeOfCSS = array(
@@ -77,6 +80,7 @@ $whiteListeOfCSS = array(
     "10" => "Form_TEST.css",
     "11" => "Form_TEST.css",
     "12" => "Form_TEST.css",
+    "13" => "Form_TEST.css",
 );
 
 $whiteListeOfJS = array(
@@ -93,6 +97,7 @@ $whiteListeOfJS = array(
     "10" => "",
     "11" => "",
     "12" => "",
+    "13" => "",
 );
 
 if (isset($_GET['action'])) {

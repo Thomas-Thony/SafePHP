@@ -4,6 +4,7 @@ namespace SafePHP;
 use SessionHandler;
 use Exception;
 use SafePHP\Auth;
+use SafePHP\Globals\Globals;
 
 /**
  * Manage user session with encryption, access verification, headers and lifetime session
@@ -150,7 +151,7 @@ class Session extends SessionHandler{
         if(isset($_SESSION["last_activity"])) {
             if($_SESSION["last_activity"] > 3600) {
                 $logoutMessage = "Session deleted, inactive for an hour or more.";
-                $logs = new Logs("../SafePHP-Logs/session.logs", "Session_Logs", " ", $logoutMessage);
+                $logs = new Logs(Globals::$logsDir . "session.logs", "Session_Logs", " ", $logoutMessage);
                 $logs->createLog("Error", $logoutMessage);
                 Auth::logout();
                 return 1;

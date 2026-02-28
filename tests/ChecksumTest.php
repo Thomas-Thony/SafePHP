@@ -9,14 +9,13 @@ class ChecksumTest extends TestCase {
      * @test
      */
     public function testExist(){
-        
-        Checksum::addToChecksum(__DIR__ . "/../config/.env.example", "testChecksumBis");
-        $this->assertEquals(true, Checksum::exist("testChecksumBis.json"));
-        
-        Checksum::addToChecksum(__DIR__ . "/../config/php.ini", "testChecksum");
-        $this->assertEquals(true, Checksum::exist("testChecksum.json"));
+        Checksum::addToChecksum(__DIR__ . "/../config/.env.example", "testChecksumNumber" . bin2hex(random_bytes(2)));
+        $this->assertEquals(false, Checksum::exist("testChecksumBis"));
 
-        Checksum::addToChecksum(__DIR__ . "/../composer.lock", "helloWorld123");
+        Checksum::addToChecksum(__DIR__ . "/../config/php.ini", "testChecksum" . bin2hex(random_bytes(2)));
+        $this->assertEquals(false, Checksum::exist("testChecksum.json"));
+
+        Checksum::addToChecksum(__DIR__ . "/../composer.lock", "helloWorld" . bin2hex(random_bytes(2)));
         $this->assertEquals(false, Checksum::exist("johndoe.json"));
     }
 
@@ -25,7 +24,8 @@ class ChecksumTest extends TestCase {
      */
     public function testHasChanged(){
         $file = __DIR__ . "/../index.php";
-        Checksum::addToChecksum($file, "index");
-        $this->assertEquals(false, Checksum::hasChanged("index"));
+        $fileName = "Testfezfzeds" . bin2hex(random_int(1, 4));
+        Checksum::addToChecksum($file, $fileName);
+        $this->assertEquals(false, Checksum::hasChanged($fileName));
     }
 }

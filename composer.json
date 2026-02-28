@@ -26,7 +26,8 @@
     "phpdocumentor/shim": "^3.9",
     "phpmailer/phpmailer": "^7.0",
     "monolog/monolog": "^3.10",
-    "cyclonedx/cyclonedx-php-composer": "^6.1.0"
+    "cyclonedx/cyclonedx-php-composer": "^6.1.0",
+    "dompdf/dompdf": "^3.1"
   }, 
   "prefer-stable": true,
   "require-dev": {

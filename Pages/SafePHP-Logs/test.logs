@@ -1,4 +1,0 @@
-[2026-01-30T21:23:44.199360+00:00] channel_test.INFO: Hello World ! [] []
-[2026-01-30T21:23:44.221618+00:00] channel_test.ERROR: Not Hello World ! [] []
-[2026-01-30T21:24:11.324387+00:00] channel_test.INFO: Hello World ! [] []
-[2026-01-30T21:24:11.332107+00:00] channel_test.ERROR: Not Hello World ! [] []
