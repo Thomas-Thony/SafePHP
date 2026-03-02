@@ -96,7 +96,7 @@ class Auth {
      * @param string $password password to authentify
      * @return void state of connexion (string error or header to the account page)
      */
-    public function register($name, $email, $password){
+    public function register($name, $email, $password) : void {
         $clientIP = Network::getClientIP();
         Network::checkIp($clientIP);
         if (isset($email, $name, $password) && !empty($name) && !empty($email) && !empty($password)) {
@@ -133,7 +133,7 @@ class Auth {
      * Destroy every sessions sets
      * @return void nothing...?
      */
-    public static function logout(){
+    public static function logout() : void{
         session_unset();
         session_destroy();
     }
@@ -186,14 +186,14 @@ class Auth {
     }
 
     /**
-     * @return array Retourne toutes les tentatives de connexion
+     * @return array Return all connexion tries
      */
     public static function getHashMapTryLogin(): array {
         return self::$listeLoginTry;
     }
 
     /**
-     * @return void les informations de tentatives de connexion
+     * @return void informations of connexion tries
      */
     public static function displayLoginAttempts(): void {
         foreach (self::$listeLoginTry as $ip => $data) {
@@ -218,7 +218,7 @@ class Auth {
      * @param string $cooldown timer of the cooldown until new try for this IP
      * @return void nothing....for the moment
      */
-    public static function addIpTryLogin($ip) {
+    public static function addIpTryLogin($ip) : array | LoginTry {
         $loginTry = new LoginTry($ip);
         return $loginTry->addTry($ip);
     }

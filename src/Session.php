@@ -26,7 +26,7 @@ class Session extends SessionHandler{
     }
 
     /**
-     * Summary of createSession
+     * Create a session
      * @param mixed $userId
      * @param mixed $userName
      * @param mixed $userAccessCode

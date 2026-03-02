@@ -13,7 +13,7 @@ class Database {
      * Connexion to the database with secrets keys aviables on .env file
      * @return PDO object to manipulate SQL
      */
-    public static function connectDatabase() {
+    public static function connectDatabase() : PDO {
         $secret = new Secret(__DIR__);
         $secret->getEnv();
         $host = $_ENV["HOST"];
@@ -35,7 +35,7 @@ class Database {
      * @param string $Query request to forge
      * @return bool|PDOStatement return prepared SQL request
      */
-    public static function InsertSQL(string $Query){
+    public static function InsertSQL(string $Query) : bool | PDOStatement {
         $connexion = self::connectDatabase();
         return $connexion->prepare($Query);
     

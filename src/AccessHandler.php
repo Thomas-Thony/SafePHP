@@ -34,7 +34,7 @@ class AccessHandler {
      * @throws ErrorHandler if false
      * @return void Return http code 200, or ErrorHandler object
      */
-    public function verifyAccess($codeAcces): bool|ErrorHandler|int {
+    public function verifyAccess($codeAcces) : bool|ErrorHandler|int {
        $userId =  Auth::verifAuth($_SESSION["user_id"]);
        
        if ($userId === false || $userId === null) {

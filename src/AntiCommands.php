@@ -11,7 +11,7 @@ class AntiCommands {
      * @param string $Input path of the file
      * @return string the escaped string
      */
-    public static function deleteShellArgs($Input){
+    public static function deleteShellArgs($Input) : string {
         return escapeshellarg($Input);
     }
 
@@ -19,7 +19,7 @@ class AntiCommands {
      * @param string $Input path of the file
      * @return string the escaped string
      */
-    public static function deleteShellCmd($Input){
+    public static function deleteShellCmd($Input) : string{
         return escapeshellcmd($Input);
     }
 }
