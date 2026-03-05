@@ -21,7 +21,6 @@ class Checksum {
         return hash_file("SHA256", $file, false);
     }
 
-
     /**
      * Check if file has changed since last checksum creation
      * @param mixed $checksumfilename
@@ -94,7 +93,7 @@ class Checksum {
      * Create a PDF file that resume every file content in the Chechsum folder
      * @return never nothing (else matters)
      */
-    public static function createSummary() : never {
+    public static function createSummary() : void {
         $checksumDir = Globals::$checksumDir;
         $listOfChecksumFiles = scandir($checksumDir);
 
@@ -106,7 +105,6 @@ class Checksum {
         ob_start();
         ?>
         <html>
-
         <body>
             <style>
                 table {
@@ -172,7 +170,7 @@ class Checksum {
         $dompdf->render();
         $dompdf->stream("Test", ["Attachment" => 0]);
         
-        /* Create a new pdf file in your root project directory*/
+        // Create a new pdf file in your root project directory
         $pdfile = $dompdf->output();
         file_put_contents("Summary_of_checksum.pdf", $pdfile);
         exit();
