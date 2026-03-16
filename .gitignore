@@ -13,3 +13,4 @@ Summary_of_checksum.pdf
 acmephp.phar
 acmephp.phar.pubkey
 config.yml
+/config/jwt/private.pem

@@ -3,9 +3,20 @@
 namespace SafePHP;
 
 /**
- * Send header when some already sent
+ * Send header when somes already sent or create somes
  */
 class Header {
+    public function __construct(){
+
+    }
+
+    public function sendCustomHeaders(int $maxAgeHSTS, string $xFrameOptions){
+        header("HTTP STRICT TRANSPORT SECURITY");
+        header("Strict-Transport-Security 'max-age=" . $maxAgeHSTS . "'");
+        header("X-Frame-Options: " . $xFrameOptions . "");
+        header('X-Content-Type-Options: nosniff');
+    }
+
     /**
      * Make redirection without header function in php
      * @param string $url the url where to redirect
