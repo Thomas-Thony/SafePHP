@@ -2,6 +2,10 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use SafePHP\Session;
+use SafePHP\Header;
+
+$headers = new Header();
+$headers->sendCustomHeaders(31536000, "DENY");
 
 Session::checkLastActivity();
 Session::checkTempPerms();

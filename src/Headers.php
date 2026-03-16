@@ -15,6 +15,9 @@ class Header {
         header("Strict-Transport-Security 'max-age=" . $maxAgeHSTS . "'");
         header("X-Frame-Options: " . $xFrameOptions . "");
         header('X-Content-Type-Options: nosniff');
+        header("Header set Content-Security-Policy 'default-src 'self'; script-src 'self' www.google-apis.com *.cloudflare.com someotherDomain.com; img-src 'self' *.cloudflare.com;'");
+        header('Referrer: never');
+        header("X-XSS-Protection: 1; mode=block");
     }
 
     /**
