@@ -9,6 +9,7 @@ use SafePHP\Globals\Globals;
 
 class Captcha {
     private OpenSSLAsymmetricKey $private_key_ressource;
+    private string $private_key_string;
     private string $public_key_ressource;
     private string $signature;
 
@@ -40,24 +41,25 @@ class Captcha {
 
     /**
      * Export key to PEM format
-     * @return void
+     * @return string
      */
-    public function exportKeys($privateKeyRessource){
+    public function exportKeys($privateKeyRessource) : string {
         openssl_pkey_export($privateKeyRessource, $private_key_string);
         $public_key_details = openssl_pkey_get_details($privateKeyRessource);
         $this->public_key_ressource = $public_key_details["key"];
         file_put_contents(Globals::$captchaDir . "public_key.pem", $this->public_key_ressource);
         file_put_contents(Globals::$captchaDir . "private_key.pem", $this->private_key_ressource);
+        $this->private_key_string = $private_key_string;
+        return $this->private_key_string;
     }
 
     /**
      * Sign data with private key
      * @param mixed $data
-     * @return void
+     * @return string signature in base64
      */
     public function sign(mixed $data) : string|ErrorHandler {
-        $private_key_resource = openssl_pkey_get_private($private_key_pem_string);
-
+        $private_key_resource = openssl_pkey_get_private($this->private_key_string);
         $signature = $this->signature;
         // Sign the data using SHA256
         if (openssl_sign($data, $signature, $private_key_resource, OPENSSL_ALGO_SHA256)) {

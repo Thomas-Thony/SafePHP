@@ -24,7 +24,7 @@ class Form {
      * @param int each params are the numbet of each input to create, startinf at null (0)
      * @return void the form with the numnber of each HTML's inputs asked
      */
-    public static function createForm($NbCheckbox = null, $NbColor = null, $NbDate = null, $NbDateTimeLocal = null, $NbEmail = null, $NbFile = null, $NbImage = null, $NbMonth = null, $NbNumber = null, $NbPassword = null, $NbRadio = null, $NbRange = null, $NbSearch = null, $NbTel = null, $NbText = null, $NbTime = null, $NbUrl = null, $NbWeek = null){
+    public static function createForm(?int $NbCheckbox, ?int $NbColor, ?int $NbDate, ?int $NbDateTimeLocal, ?int $NbEmail, ?int $NbFile, ?int $NbImage, ?int $NbMonth, ?int $NbNumber , ?int $NbPassword, ?int $NbRadio, ?int $NbRange, ?int $NbSearch, ?int $NbTel, ?int $NbText, ?int $NbTime, ?int $NbUrl, ?int $NbWeek){
 
         CSRF::createCSRF(); //We add it on each form for a better security
 
