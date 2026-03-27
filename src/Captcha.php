@@ -58,7 +58,7 @@ class Captcha {
     public function sign(mixed $data) : string|ErrorHandler {
         $private_key_resource = openssl_pkey_get_private($private_key_pem_string);
 
-        $signature = '';
+        $signature = $this->signature;
         // Sign the data using SHA256
         if (openssl_sign($data, $signature, $private_key_resource, OPENSSL_ALGO_SHA256)) {
             $base64_signature = base64_encode($signature);

@@ -17,4 +17,10 @@ else
     echo "Error while creating Chechsums folder"
 fi
 
+if mkdir -p $ROOTDIR/src/Captcha; then
+    echo "Logs folder created in : $ROOTDIR"
+else
+    echo "Error while creating captcha keys folder"
+fi
+
 echo "Creation of basics folder made with success !"
