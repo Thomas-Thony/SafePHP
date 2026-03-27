@@ -21,7 +21,7 @@ class ErrorHandler {
      * @return void
      */
     public function __construct($errorCode, $fileErrorInclusion, $logPath){
-        $logsHTTP = new Logs(Globals::$logsDir . $logPath, "HTTP/HTTPS reponse", "Request response : 200", "Request response : " . $errorCode);
+        $logsHTTP = new Logs(Globals::$logsDir . $logPath, "HTTP/HTTPS reponse", "Error with HTTP", "Request response : " . $errorCode);
         $logsHTTP->createLog("Error", $logsHTTP->getErrorMessage());
         http_response_code($errorCode);
         http_response_code();

@@ -1,7 +1,9 @@
 # Generic template of the Apache file configuration
 
+TraceEnable off
+
 # Block site access to everything (in case of EMERGENCY) :
-## deny from all
+## Deny from all
 
 # Do not display subfolders by default
 Options -Indexes

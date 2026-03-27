@@ -2,9 +2,9 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use SafePHP\Session;
-use SafePHP\Header;
+use SafePHP\Headers;
 
-$headers = new Header();
+$headers = new Headers();
 $headers->sendCustomHeaders(31536000, "DENY");
 
 Session::checkLastActivity();

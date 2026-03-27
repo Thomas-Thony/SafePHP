@@ -14,3 +14,4 @@ acmephp.phar
 acmephp.phar.pubkey
 config.yml
 /config/jwt/private.pem
+/src/CaptchaHandler/*.pem

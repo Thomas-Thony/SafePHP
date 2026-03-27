@@ -5,11 +5,17 @@ namespace SafePHP;
 /**
  * Send header when somes already sent or create somes
  */
-class Header {
+class Headers {
     public function __construct(){
 
     }
 
+    /**
+     * Send basics securiity headers with only https redirections, CSP, XSS-HEADER protection, clickjacking protection and HSTS
+     * @param int $maxAgeHSTS number of seconds for HSTS preload
+     * @param string $xFrameOptions Options for clickjacking protection
+     * @return void
+     */
     public function sendCustomHeaders(int $maxAgeHSTS, string $xFrameOptions){
         header("HTTP STRICT TRANSPORT SECURITY");
         header("Strict-Transport-Security 'max-age=" . $maxAgeHSTS . "'");
