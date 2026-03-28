@@ -1,3 +1,6 @@
+# TODO : Prendre exemple sur https://dsi.ut-capitole.fr/cours/protection_application_web.pdf
+# TODO : Ajouter jeton XSRF
+
 # Generic template of the Apache file configuration
 
 TraceEnable off
@@ -24,16 +27,16 @@ Header set Cache-Control "max-age=3000, public"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
 # XSS Protection
-# Header always set X-XSS-Protection "1; mode=block"
+Header always set X-XSS-Protection "1; mode=block"
 
 # Block MIME sniffing
-# Header always set X-Content-Type-Options "nosniff"
+Header always set X-Content-Type-Options "nosniff"
 
 # Disable permissions
 # Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
 
 # Prevent "DNS prefetch"
-# Header always set X-DNS-Prefetch-Control "off"
+Header always set X-DNS-Prefetch-Control "off"
 
 # Limit the possible methods in HTTP (Here, simply GET and POST)
 Header set Access-Control-Allow-Methods "GET, POST"
@@ -68,7 +71,7 @@ Header edit Set-Cookie ^(PHPSESSID=.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
 # </Files>
 
 # Template for authorized file types 
-# <Files ~ "\.(gif|jpe?g|png|webp|pdf)$">
+# <Files ~ "\.(gif|jpeg|png|webp|pdf)$">
 #     order deny,allow
 #     allow from all
 # </Files>
