@@ -10,7 +10,8 @@ use SafePHP\GLOBALS\Globals;
 /**
  * Router management with list of ressources authorized (avoid file inclusion or code inclusion)
  */
-class Router {
+class Router
+{
     private array $whiteListOfPages = [];
     private array $whiteListOfTitle = [];
     private array $whiteListeOfCSS = [];
@@ -25,7 +26,8 @@ class Router {
      * Construct a router
      * Create a list of pages, styles and scripts files to accept only them on GET method
      */
-    public function __construct(array $aWhiteListOfPages, array $aWhiteListOfTitle, array $aWhiteListOfCSS, array $whiteListOfJS, array $aWhiteListOfAccess, string $aPagesFolder, string $aStyleFolder, string $aScriptFolder){
+    public function __construct(array $aWhiteListOfPages, array $aWhiteListOfTitle, array $aWhiteListOfCSS, array $whiteListOfJS, array $aWhiteListOfAccess, string $aPagesFolder, string $aStyleFolder, string $aScriptFolder)
+    {
         $this->whiteListOfPages = $aWhiteListOfPages;
         $this->whiteListOfTitle = $aWhiteListOfTitle;
         $this->whiteListeOfCSS = $aWhiteListOfCSS;
@@ -42,7 +44,8 @@ class Router {
      * Return the whole properties constructed
      * @return void A list at HTML format of each properties
      */
-    public function getListsComponents(){
+    public function getListsComponents()
+    {
         echo "Liste des pages : <ul>";
         echo "<br>";
         foreach ($this->whiteListOfPages as $aWhitePage) {
@@ -103,23 +106,28 @@ class Router {
         return;
     }
 
-    public function getWhiteListOfPages(){
+    public function getWhiteListOfPages()
+    {
         return $this->whiteListOfPages;
     }
-    
-    public function getWhiteListOfTitles(){
+
+    public function getWhiteListOfTitles()
+    {
         return $this->whiteListOfTitle;
     }
 
-    public function getWhiteListOfCSS(){
+    public function getWhiteListOfCSS()
+    {
         return $this->whiteListeOfCSS;
     }
 
-    public function getWhiteListOfJS(){
+    public function getWhiteListOfJS()
+    {
         return $this->whiteListOfJS;
     }
 
-    public function getWhiteListOfAccessPages(){
+    public function getWhiteListOfAccessPages()
+    {
         return $this->whiteListAccesPages;
     }
 
@@ -157,7 +165,7 @@ class Router {
                     $ressourceCSS,
                     $ressourceJS
                 );
-                
+
             } else {
                 new ErrorHandler(404, "404.php", Globals::$logsDir . "router.logs");
             }
@@ -171,7 +179,7 @@ class Router {
      * @param mixed $nomLien if the type of file is page, then give a name to the link
      * @return string output the link or error
      */
-    public function createLink($ressourceType, $elementIndex, $nomLien = null){
+    public function createLink($ressourceType, $elementIndex, $nomLien = null) : Exceptions|string {
         $link = "";
         switch ($ressourceType) {
             case "page":
@@ -194,12 +202,13 @@ class Router {
                 Exceptions::setErreurCustom("Merci de rentrer un type de lien valide ! (page, style ou script)");
                 break;
         }
-        echo $link;
+        return $link;
     }
 
-    public static function checkHTTPResponse() {
+    public static function checkHTTPResponse()
+    {
         $httpStatus = connection_status();
-        if($httpStatus === 2) {
+        if ($httpStatus === 2) {
             return new ErrorHandler(408, "408.php", Globals::$logsDir . "router.logs");
         }
     }

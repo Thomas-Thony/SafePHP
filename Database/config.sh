@@ -1,0 +1,5 @@
+WEBAPP_DB_NAME="YOUR DB NAME HERE"
+
+# Utilisateur applicatif et son mot de passe 
+WEBAPP_USER="YOUR DB USER HERE"
+WEBAPP_PASSWORD="YOUR DB PASSWORD HERE"

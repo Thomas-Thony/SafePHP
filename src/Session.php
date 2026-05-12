@@ -16,7 +16,7 @@ class Session extends SessionHandler{
     /**
      * Construct the Session object with env key a secrets key
      * @param bool $ARegenCookie set if the constructor must regenerate the session's id or not
-     * @return void
+     * @return void session
      */
     public function __construct($userId, $userName, $userAccessCode){
         $secret = new Secret(__DIR__ . "../../config/");

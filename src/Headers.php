@@ -29,7 +29,6 @@ class Headers {
     /**
      * Make redirection without header function in php
      * @param string $url the url where to redirect
-     * @return
      */
     public static function redirect(string $url){
         if (!headers_sent()) {
