@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "915daed673e6927688199089162c0e29",
+    "content-hash": "9f336eeb04f7e414a0bbc9edf937773c",
     "packages": [
         {
             "name": "composer/spdx-licenses",
@@ -1833,6 +1833,126 @@
                 }
             ],
             "time": "2026-02-04T18:08:13+00:00"
+        },
+        {
+            "name": "thefox/hashcash",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TheFox/hashcash.git",
+                "reference": "41d58d93fca7596c6b3b4320607848db4b5161ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TheFox/hashcash/zipball/41d58d93fca7596c6b3b4320607848db4b5161ea",
+                "reference": "41d58d93fca7596c6b3b4320607848db4b5161ea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "thefox/utilities": "1.0.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.14",
+                "thefox/phpcsrs": "1.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "TheFox": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv3"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Mayer",
+                    "email": "thefox21at@gmail.com",
+                    "homepage": "http://fox21.at"
+                }
+            ],
+            "description": "Hashcash implementation in PHP.",
+            "homepage": "http://fox21.at",
+            "keywords": [
+                "Hashcash",
+                "cash",
+                "hash",
+                "sha1"
+            ],
+            "support": {
+                "issues": "https://github.com/TheFox/hashcash/issues",
+                "source": "https://github.com/TheFox/hashcash/tree/master"
+            },
+            "time": "2014-05-07T09:32:08+00:00"
+        },
+        {
+            "name": "thefox/utilities",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TheFox/utilities.git",
+                "reference": "f0dfc5696f7a062fa67f2c75726ae8aa247ceaf5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TheFox/utilities/zipball/f0dfc5696f7a062fa67f2c75726ae8aa247ceaf5",
+                "reference": "f0dfc5696f7a062fa67f2c75726ae8aa247ceaf5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.14",
+                "thefox/phpcsrs": "1.1.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "TheFox": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv3"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Mayer",
+                    "email": "thefox21at@gmail.com",
+                    "homepage": "http://fox21.at"
+                }
+            ],
+            "description": "Collection of usefull PHP utilities.",
+            "homepage": "http://fox21.at",
+            "keywords": [
+                "base58",
+                "bin",
+                "binary",
+                "debug",
+                "hex",
+                "hexadecimal",
+                "rand",
+                "random",
+                "utilities"
+            ],
+            "support": {
+                "issues": "https://github.com/TheFox/utilities/issues",
+                "source": "https://github.com/TheFox/utilities/tree/master"
+            },
+            "time": "2014-04-30T22:00:29+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

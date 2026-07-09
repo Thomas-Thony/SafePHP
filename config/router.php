@@ -30,6 +30,7 @@ $whiteListOfTitle = array(
     "11" => "",
     "12" => "",
     "13" => "",
+    "14" => ""
 );
 
 $whiteListAccesPages = array(
@@ -47,6 +48,7 @@ $whiteListAccesPages = array(
     "11" => 4,
     "12" => 1,
     "13" => 1,
+    "14" => 0,
 );
 
 $whiteListOfPages = array(
@@ -64,6 +66,7 @@ $whiteListOfPages = array(
     "11" => "Logs_TEST.php",
     "12" => "RBAC_TEST.php",
     "13" => "Checksum_TEST.php",
+    "14" => "POW_TEST.php"
 );
 
 $whiteListeOfCSS = array(
@@ -81,6 +84,7 @@ $whiteListeOfCSS = array(
     "11" => "Form_TEST.css",
     "12" => "Form_TEST.css",
     "13" => "Form_TEST.css",
+    "14" => "Form_TEST.css",
 );
 
 $whiteListeOfJS = array(

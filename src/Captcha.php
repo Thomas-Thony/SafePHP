@@ -40,6 +40,7 @@ class Captcha {
     }
 
     /**
+     * @param mixed $privateKeyRessource
      * Export key to PEM format
      * @return string
      */

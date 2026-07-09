@@ -1,19 +1,21 @@
 <?php
 namespace SafePHP;
 
+use ErrorException;
+
 /**
  * Verification of file uploaded (Type|MIME) and extensions
  */
 class Verify {
-    private static array $DocumentsFile = ["pdf", "doc", "docx", "txt", "odt", "ppt", "pptx"]; //Liste d'extension de documents valide
-    private static array $ImagesFile = ["png", "jpeg", "jpg", "gif"]; //Liste d'extension d'image valide
-    private static array $VideosFile = ["mov", "mp4", "m4a"]; //Liste d'extension vidéo valides
+    private static array $documentsFile = ["pdf", "doc", "docx", "txt", "odt", "ppt", "pptx"]; //Liste d'extension de documents valide
+    private static array $imagesFile = ["png", "jpeg", "jpg", "gif"]; //Liste d'extension d'image valide
+    private static array $videosFile = ["mov", "mp4", "m4a"]; //Liste d'extension vidéo valides
 
     /**
      * List of signature file accepted
      * @var array Mime Types authorized for each "type" of file
      */
-    private static array $MimeTypes = [
+    private static array $mimeTypes = [
         // Documents
         "pdf" => ["application/pdf"],
         "doc" => ["application/msword"],
@@ -44,19 +46,19 @@ class Verify {
 
     /**
      * Return an extension list about the type given in parameter
-     * @param string $AType File's type expected (Documents, Pictures, Videos)
+     * @param string $type File's type expected (Documents, Pictures, Videos)
      * @return array Return the extension list
      */
-    public static function getTypeFileAviable($AType): array {
-        switch ($AType) {
+    public static function getTypeFileAviable($type): array {
+        switch ($type) {
             case "Documents":
-                return self::$DocumentsFile;
+                return self::$documentsFile;
             case "Images":
-                return self::$ImagesFile;
+                return self::$imagesFile;
             case "Videos":
-                return self::$VideosFile;
+                return self::$videosFile;
             default:
-                return ["This type of file does not exist !"];
+                throw new ErrorException("This type of file does not exist !");
         }
     }
 
@@ -98,12 +100,12 @@ class Verify {
 
     /**
      * Verify the picture extension sent
-     * @param string  $File File's path to verify
+     * @param string  $file File's path to verify
      * @return int return 1 if the file extension is in the list of expected format, else return 0
      */
-    public static function verifyExtensionImage($File){
-        $Extension = strtolower(pathinfo($File, PATHINFO_EXTENSION));
-        if (in_array($Extension, self::$ImagesFile)) {
+    public static function verifyExtensionImage($file){
+        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        if (in_array($extension, self::$imagesFile)) {
             return 1;
         } else {
             return 0;
@@ -113,31 +115,23 @@ class Verify {
     /**
      * Verify the signature (MIME type) AND the extension of the file uploaded
      * Principe : STRIC WHITE LIST only
-     * @param string $FileTmpName Temp file's path
-     * @param string $FileName Original name of the file
-     * @param string $FileType File type expected (Documents, Pictures, Videos)
+     * @param string $fileTmpName Temp file's path
+     * @param string $fileName Original name of the file
+     * @param string $fileType File type expected (Documents, Pictures, Videos)
      * @return bool if everything is like expected, return true, else, return false
      */
-    public static function verifySignatureFile($FileTmpName, $FileName, $FileType){
-        if (!is_uploaded_file($FileTmpName)) {
-            return false;
-        }
+    public static function verifySignatureFile($fileTmpName, $fileName, $fileType){
+        $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExtensions = self::getTypeFileAviable($fileType);
 
-        $Extension = strtolower(pathinfo($FileName, PATHINFO_EXTENSION));
-
-        $AllowedExtensions = self::getTypeFileAviable($FileType);
-        if (!in_array($Extension, $AllowedExtensions)) {
-            return false;
-        }
-
-        if (!isset(self::$MimeTypes[$Extension])) {
+        if (!in_array($extension, $allowedExtensions) || !isset(self::$MimeTypes[$extension]) || !is_uploaded_file($fileTmpName)) {
             return false;
         }
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $detectedMimeType = finfo_file($finfo, $FileTmpName);
+        $detectedMimeType = finfo_file($finfo, $fileTmpName);
 
-        $allowedMimeTypesForExtension = self::$MimeTypes[$Extension];
+        $allowedMimeTypesForExtension = self::$mimeTypes[$extension];
 
         if (!in_array($detectedMimeType, $allowedMimeTypesForExtension)){
             return false;

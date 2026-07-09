@@ -18,6 +18,7 @@
       <a class="navbar-item" href="index.php?action=11">Test Logs</a>
       <a class="navbar-item" href="index.php?action=12">Test RBAC</a>
       <a class="navbar-item" href="index.php?action=13">Test Rapport Checksum</a>
+      <a class="navbar-item" href="index.php?action=14">Test Proof of concept</a>
     </div>
   </div>
 </div>
